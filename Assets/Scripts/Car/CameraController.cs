@@ -6,6 +6,6 @@ namespace Car
 {
     public class CameraController : NetworkBehaviour
     {
-        
+                
     }
 }
