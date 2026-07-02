@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: DefaultPrefabObjects
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Managing.Object.DefaultPrefabObjects
   _prefabs:
-  - {fileID: 1059342007919270141, guid: a3a21fb84ccf697448adacb0d9eb633b, type: 3}
+  - {fileID: 2303521890887374736, guid: a3a21fb84ccf697448adacb0d9eb633b, type: 3}

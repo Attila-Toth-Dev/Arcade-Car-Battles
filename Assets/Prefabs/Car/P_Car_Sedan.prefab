@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1307262067485701917}
   m_Layer: 0
-  m_Name: Parent
+  m_Name: Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,11 +25,11 @@ Transform:
   m_GameObject: {fileID: 1706682797193071982}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3385761300803870058}
+  - {fileID: 7777523085607614467}
   m_Father: {fileID: 1919785509379433900}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3704048056470022491
@@ -73,9 +73,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3704048056470022491}
   serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_Mass: 300
+  m_LinearDamping: 2
+  m_AngularDamping: 2
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -88,10 +88,10 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!135 &8425380108939131726
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -111,8 +111,40 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5499810670544840914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7777523085607614467}
+  m_Layer: 0
+  m_Name: Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7777523085607614467
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5499810670544840914}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4143943610105270245}
+  m_Father: {fileID: 1307262067485701917}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7294968795295978340
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,8 +154,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8470269582985431358}
-  - component: {fileID: 2148892439184250636}
-  - component: {fileID: 1059342007919270141}
+  - component: {fileID: 7585119977071486847}
+  - component: {fileID: 2303521890887374736}
   m_Layer: 0
   m_Name: P_Car_Sedan
   m_TagString: Untagged
@@ -148,7 +180,7 @@ Transform:
   - {fileID: 2726808584903900518}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2148892439184250636
+--- !u!114 &7585119977071486847
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,22 +192,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad22957a337f1594ba69edd3f0ba0c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Car.CarController
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 1059342007919270141}
-  _networkObjectCache: {fileID: 0}
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 2303521890887374736}
+  _networkObjectCache: {fileID: 2303521890887374736}
   carRb: {fileID: 9073975740902891230}
-  model: {fileID: 1919785509379433900}
-  parent: {fileID: 1307262067485701917}
-  speed: 10
-  steer: 10
-  offset: 0.4
+  carModel: {fileID: 4143943610105270245}
+  carParent: {fileID: 1919785509379433900}
+  carNormal: {fileID: 1307262067485701917}
+  topSpeed: 20
+  acceleration: 5
+  deceleration: 10
+  steering: 10
+  gravity: 9.81
+  colliderOffset: 0.5
+  rayDistance: 1.1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
   moveActionRef: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   moveInput: {x: 0, y: 0}
   isAccelerating: 0
   isSteering: 0
-  currentSpeed: 0
-  currentSteer: 0
---- !u!114 &1059342007919270141
+  isGrounded: 0
+--- !u!114 &2303521890887374736
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,7 +232,8 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
-  NetworkBehaviours: []
+  NetworkBehaviours:
+  - {fileID: 7585119977071486847}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -204,7 +244,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _preventDespawnOnDisconnect: 0
   _defaultDespawnType: 0
-  _initializedTimestamp: 0
+  _initializedTimestamp: -8584186092118184341
   _localLevelOfDetailCalculationType: 0
   _useLevelOfDetail: 0
   _useRootLevelOfDetail: 1
@@ -223,15 +263,15 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 65535
+  <PrefabId>k__BackingField: 0
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 5609759576638623803
   SceneId: 0
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Scale: {x: 0, y: 0, z: 0}
-    IsValid: 0
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    Scale: {x: 1, y: 1, z: 1}
+    IsValid: 1
 --- !u!1 &8025974037282059366
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1919785509379433900}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -264,13 +304,45 @@ Transform:
   - {fileID: 1307262067485701917}
   m_Father: {fileID: 8470269582985431358}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9009442155519577361
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4143943610105270245}
+  m_Layer: 0
+  m_Name: Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4143943610105270245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9009442155519577361}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3385761300803870058}
+  m_Father: {fileID: 7777523085607614467}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2987604589560248961
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1307262067485701917}
+    m_TransformParent: {fileID: 4143943610105270245}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 19b8168b7db549d4c89d27066624d0ef, type: 3}
       propertyPath: m_LocalPosition.x
