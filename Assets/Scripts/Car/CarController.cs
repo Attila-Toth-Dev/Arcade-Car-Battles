@@ -35,11 +35,10 @@ namespace Car
         [SerializeField, ReadOnly] private bool isAccelerating;
         [SerializeField, ReadOnly] private bool isSteering;
         [SerializeField, ReadOnly] private bool isGrounded;
-
-        private float currentSpeed;
-        private float currentRotate;
-        private float speed;
-        private float rotate;
+        [SerializeField, ReadOnly] private float currentSpeed;
+        [SerializeField, ReadOnly] private float currentRotate;
+        [SerializeField, ReadOnly] private float speed;
+        [SerializeField, ReadOnly] private float rotate;
 
         private Quaternion cachedRotation;
 
@@ -133,7 +132,7 @@ namespace Car
 
         private void GroundCheck()
         {
-            isGrounded = Physics.Raycast(transform.position, Vector3.down, out hitOn, rayDistance, layerMask);
+            isGrounded = Physics.Raycast(carParent.transform.position, Vector3.down, out hitOn, rayDistance, layerMask);
         }
 
         private void ApplyAcceleration()
@@ -143,7 +142,7 @@ namespace Car
 
         private void ApplySteering()
         {
-            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y + currentRotate, 0), Time.fixedDeltaTime * 5.0f);
+            carParent.transform.eulerAngles = Vector3.Lerp(carParent.transform.eulerAngles, new Vector3(0, carParent.transform.eulerAngles.y + currentRotate, 0), Time.fixedDeltaTime * 5.0f);
         }
 
         private void ApplyGravity()
@@ -156,7 +155,7 @@ namespace Car
             if(isGrounded)
             {
                 carNormal.up = Vector3.Lerp(carNormal.up, hitOn.normal, Time.fixedDeltaTime * 8.0f);
-                carNormal.Rotate(0, transform.eulerAngles.y, 0);
+                carNormal.Rotate(0, carParent.transform.eulerAngles.y, 0);
             }
             else
                 carNormal.Rotate(cachedRotation.x, cachedRotation.y, cachedRotation.z);
