@@ -88,7 +88,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -163,10 +163,18 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 1059342007919270141}
   _networkObjectCache: {fileID: 0}
-  carRb: {fileID: 0}
-  moveActionRef: {fileID: 0}
+  carRb: {fileID: 9073975740902891230}
+  model: {fileID: 1919785509379433900}
+  parent: {fileID: 1307262067485701917}
+  speed: 10
+  steer: 10
+  offset: 0.4
+  moveActionRef: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   moveInput: {x: 0, y: 0}
-  isMoving: 0
+  isAccelerating: 0
+  isSteering: 0
+  currentSpeed: 0
+  currentSteer: 0
 --- !u!114 &1059342007919270141
 MonoBehaviour:
   m_ObjectHideFlags: 0
