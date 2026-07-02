@@ -199,6 +199,30 @@ MonoBehaviour:
   carModel: {fileID: 4143943610105270245}
   carParent: {fileID: 1919785509379433900}
   carNormal: {fileID: 1307262067485701917}
+  accelerationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   topSpeed: 20
   acceleration: 5
   deceleration: 10
@@ -214,6 +238,10 @@ MonoBehaviour:
   isAccelerating: 0
   isSteering: 0
   isGrounded: 0
+  currentSpeed: 0
+  currentRotate: 0
+  speed: 0
+  rotate: 0
 --- !u!114 &2303521890887374736
 MonoBehaviour:
   m_ObjectHideFlags: 0

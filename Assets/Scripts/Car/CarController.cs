@@ -16,6 +16,7 @@ namespace Car
         [SerializeField] private Transform carNormal;
 
         [Header("Car Properties")]
+        [SerializeField] private AnimationCurve accelerationCurve;
         [SerializeField] private float topSpeed;
         [SerializeField] private float acceleration;
         [SerializeField] private float deceleration;
