@@ -43,7 +43,7 @@ namespace Car
 
         private Quaternion cachedRotation;
 
-        RaycastHit hitOn;
+        private RaycastHit hitOn;
 
         public override void OnStartClient()
         {
@@ -108,13 +108,15 @@ namespace Car
         {
             if (isAccelerating)
                 speed = topSpeed * moveInput.y;
+            else
+                speed = 0;
 
             currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * acceleration);
         }
 
         private void CalculateSteering()
         {
-            if (isSteering)
+            if (isSteering && currentSpeed > Mathf.Abs(2.0f))
             {
                 int dir = moveInput.x > 0 ? 1 : -1;
                 float amount = Mathf.Abs(moveInput.x);
