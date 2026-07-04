@@ -560,7 +560,7 @@ MonoBehaviour:
   _synchronizeParent: 0
   _packing:
     Position: 2
-    Rotation: 1
+    Rotation: 2
     Scale: 1
   _useScaledTime: 1
   _interpolation: 2
@@ -576,7 +576,7 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
-  _synchronizeRotation: 0
+  _synchronizeRotation: 1
   _rotationSnapping:
     X: 0
     Y: 0
