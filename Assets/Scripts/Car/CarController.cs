@@ -9,6 +9,9 @@ namespace Car
 {
     public class CarController : NetworkBehaviour
     {
+        private const float BODY_ROTATE_SPEED = 5.0f;
+        private const float STEERING_SENSITIVITY = 5.0f;
+
         [Header("References")]
         [SerializeField] private Rigidbody carRb;
         [SerializeField] private Transform carModel;
@@ -145,7 +148,7 @@ namespace Car
 
         private void ApplySteering()
         {
-            carParent.transform.eulerAngles = Vector3.Lerp(carParent.transform.eulerAngles, new Vector3(0, carParent.transform.eulerAngles.y + currentRotate, 0), Time.fixedDeltaTime * 5.0f);
+            carParent.transform.eulerAngles = Vector3.Lerp(carParent.transform.eulerAngles, new Vector3(0, carParent.transform.eulerAngles.y + currentRotate, 0), Time.fixedDeltaTime * STEERING_SENSITIVITY);
         }
 
         private void ApplyGravity()
@@ -157,7 +160,7 @@ namespace Car
         {
             if(isGrounded)
             {
-                carNormal.up = Vector3.Lerp(carNormal.up, hitOn.normal, Time.fixedDeltaTime * 8.0f);
+                carNormal.up = Vector3.Lerp(carNormal.up, hitOn.normal, Time.fixedDeltaTime * BODY_ROTATE_SPEED);
                 carNormal.Rotate(0, carParent.transform.eulerAngles.y, 0);
             }
             else
