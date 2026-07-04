@@ -375,7 +375,7 @@ MonoBehaviour:
       outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 1
+      value: 1.5
       inSlope: 2
       outSlope: 2
       tangentMode: 0
@@ -395,6 +395,7 @@ MonoBehaviour:
   moveActionRef: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   moveInput: {x: 0, y: 0}
   isAccelerating: 0
+  isDecelerating: 0
   isSteering: 0
   currentSpeed: 0
   speed: 0

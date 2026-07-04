@@ -42,6 +42,7 @@ namespace Car
         [Header("Debugging - Input")]
         [SerializeField, ReadOnly] private Vector2 moveInput;
         [SerializeField, ReadOnly] private bool isAccelerating;
+        [SerializeField, ReadOnly] private bool isDecelerating;
         [SerializeField, ReadOnly] private bool isSteering;
 
         [Header("Debugging - Acceleration")]
@@ -113,7 +114,8 @@ namespace Car
         {
             moveInput = moveActionRef.action.ReadValue<Vector2>();
 
-            isAccelerating = moveInput.y != 0.0f;
+            isAccelerating = moveInput.y > 0.0f;
+            isDecelerating = moveInput.y < 0.0f;
             isSteering = moveInput.x != 0.0f;
         }
 
@@ -121,6 +123,8 @@ namespace Car
         {
             if (isAccelerating)
                 speed = maxSpeed * moveInput.y;
+            else if (isDecelerating)
+                speed = (maxSpeed * 0.5f) * moveInput.y;
             else
                 speed = 0;
 
