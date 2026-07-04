@@ -43,12 +43,12 @@ namespace Car
         [SerializeField, ReadOnly] private Vector2 moveInput;
         [SerializeField, ReadOnly] private bool isAccelerating;
         [SerializeField, ReadOnly] private bool isDecelerating;
+        [SerializeField, ReadOnly] private bool isReversing;
         [SerializeField, ReadOnly] private bool isSteering;
 
         [Header("Debugging - Acceleration")]
         [SerializeField, ReadOnly] private float currentSpeed;
         [SerializeField, ReadOnly] private float speed;
-        [SerializeField, ReadOnly] private float rigidbodySpeed;
 
         [Header("Debugging - Steering")]
         [SerializeField, ReadOnly] private float currentRotate;
@@ -123,7 +123,7 @@ namespace Car
         {
             if (isAccelerating)
                 speed = maxSpeed * moveInput.y;
-            else if (isDecelerating)
+            else if (isDecelerating || isReversing)
                 speed = (maxSpeed * 0.5f) * moveInput.y;
             else
                 speed = 0;
@@ -158,7 +158,7 @@ namespace Car
 
         private void ApplyAcceleration()
         {
-            rigidbodySpeed = carRb.linearVelocity.magnitude;
+            isReversing = carRb.linearVelocity.magnitude < 0.0f;
 
             carRb.AddForce(carModel.transform.forward * (isGrounded ? currentSpeed : currentSpeed/* * 0.2f*/), ForceMode.Acceleration);
         }
