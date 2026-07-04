@@ -300,8 +300,8 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 0}
   playerCamera: {fileID: 213117041334842499}
   target: {fileID: 4143943610105270245}
-  cameraHeight: 6
-  cameraDistance: 6
+  cameraHeight: 8
+  cameraDistance: 8
 --- !u!1 &7294968795295978340
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,10 +381,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  topSpeed: 20
-  acceleration: 5
+  topSpeed: 70
+  acceleration: 7
   deceleration: 10
-  steering: 10
+  steering: 20
   gravity: 9.81
   colliderOffset: 0.5
   rayDistance: 1.1
