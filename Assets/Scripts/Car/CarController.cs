@@ -111,6 +111,8 @@ namespace Car
         {
             if (isAccelerating)
                 speed = topSpeed * moveInput.y;
+            else if (isAccelerating && !isGrounded)
+                speed = topSpeed * moveInput.y * 0.2f;
             else
                 speed = 0;
 
