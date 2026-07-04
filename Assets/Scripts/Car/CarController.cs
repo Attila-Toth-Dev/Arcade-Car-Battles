@@ -9,8 +9,12 @@ namespace Car
 {
     public class CarController : NetworkBehaviour
     {
-        private const float BODY_ROTATE_SPEED = 5.0f;
+        // -- STEERING CONSTANTS -- //
         private const float STEERING_SENSITIVITY = 5.0f;
+        private const float VALID_STEERING_THRESHOLD = 0.5f;
+
+        // -- BODY ROTATION CONSTANTS -- //
+        private const float BODY_ROTATE_SPEED = 5.0f;
 
         [Header("References")]
         [SerializeField] private Rigidbody carRb;
@@ -19,30 +23,36 @@ namespace Car
         [SerializeField] private Transform carNormal;
 
         [Header("Car Properties")]
-        [SerializeField] private AnimationCurve accelerationCurve;
-        [SerializeField] private float topSpeed;
+        [SerializeField] private float maxSpeed;
         [SerializeField] private float acceleration;
         [SerializeField] private float deceleration;
-        [SerializeField] private float steering;
+        [SerializeField] private float maxSteerAngle;
+        [SerializeField] private AnimationCurve steeringSensCurve;
 
         [Header("Physics Properties")]
         [SerializeField] private float gravity = 9.81f;
         [SerializeField] private float colliderOffset = 0.5f;
         [SerializeField] private float rayDistance = 1.1f;
         [SerializeField] private LayerMask layerMask;
- 
+        [SerializeField, ReadOnly] private bool isGrounded;
+
         [Header("Input References")]
         [SerializeField] private InputActionReference moveActionRef;
 
-        [Header("Debugging")]
+        [Header("Debugging - Input")]
         [SerializeField, ReadOnly] private Vector2 moveInput;
         [SerializeField, ReadOnly] private bool isAccelerating;
         [SerializeField, ReadOnly] private bool isSteering;
-        [SerializeField, ReadOnly] private bool isGrounded;
+
+        [Header("Debugging - Acceleration")]
         [SerializeField, ReadOnly] private float currentSpeed;
-        [SerializeField, ReadOnly] private float currentRotate;
         [SerializeField, ReadOnly] private float speed;
+        [SerializeField, ReadOnly] private float rigidbodySpeed;
+
+        [Header("Debugging - Steering")]
+        [SerializeField, ReadOnly] private float currentRotate;
         [SerializeField, ReadOnly] private float rotate;
+        [SerializeField, ReadOnly] private float amount;
 
         private Quaternion cachedRotation;
 
@@ -110,9 +120,7 @@ namespace Car
         private void CalculateAcceleration()
         {
             if (isAccelerating)
-                speed = topSpeed * moveInput.y;
-            else if (isAccelerating && !isGrounded)
-                speed = topSpeed * moveInput.y * 0.2f;
+                speed = maxSpeed * moveInput.y;
             else
                 speed = 0;
 
@@ -121,12 +129,13 @@ namespace Car
 
         private void CalculateSteering()
         {
-            if (isSteering && currentSpeed > Mathf.Abs(2.0f))
+            if (isSteering && Mathf.Abs(carRb.linearVelocity.magnitude) > VALID_STEERING_THRESHOLD)
             {
-                int dir = moveInput.x > 0 ? 1 : -1;
-                float amount = Mathf.Abs(moveInput.x);
-
-                rotate = (steering * dir) * amount;
+                float clampedSpeed = Mathf.Clamp01(currentSpeed / maxSpeed);
+                amount = steeringSensCurve.Evaluate(clampedSpeed);
+                
+                float dir = moveInput.x > 0 ? amount : -amount;
+                rotate = maxSteerAngle * dir;
             }
             else
                 rotate = 0;
@@ -145,6 +154,8 @@ namespace Car
 
         private void ApplyAcceleration()
         {
+            rigidbodySpeed = carRb.linearVelocity.magnitude;
+
             carRb.AddForce(carModel.transform.forward * (isGrounded ? currentSpeed : currentSpeed/* * 0.2f*/), ForceMode.Acceleration);
         }
 
