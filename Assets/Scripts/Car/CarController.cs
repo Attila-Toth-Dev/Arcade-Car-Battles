@@ -143,7 +143,7 @@ namespace Car
 
         private void ApplyAcceleration()
         {
-            carRb.AddForce(carModel.transform.forward * (isGrounded ? currentSpeed : currentSpeed * 0.2f), ForceMode.Acceleration);
+            carRb.AddForce(carModel.transform.forward * (isGrounded ? currentSpeed : currentSpeed/* * 0.2f*/), ForceMode.Acceleration);
         }
 
         private void ApplySteering()
