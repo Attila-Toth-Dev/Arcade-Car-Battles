@@ -31,9 +31,9 @@ namespace Weapons
             weaponActionRef.action.Enable();
 
             NetworkObject nob = NetworkManager.GetPooledInstantiated(currentWeapon, weaponAttachPoint, true);
-            nob.transform.SetParent(weaponAttachPoint, false);
-            nob.transform.localPosition = Vector3.zero;
-            nob.transform.localRotation = Quaternion.identity;
+            //nob.transform.SetParent(weaponAttachPoint, false);
+            //nob.transform.localPosition = Vector3.zero;
+            //nob.transform.localRotation = Quaternion.identity;
 
             ServerManager.Spawn(nob, base.Owner);
         }
