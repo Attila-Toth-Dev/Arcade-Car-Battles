@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2492249734831863302}
-  - component: {fileID: 2393850155860798891}
   - component: {fileID: 1195056985496502904}
   - component: {fileID: 4058438872660586527}
+  - component: {fileID: 2393850155860798891}
   m_Layer: 0
   m_Name: P_Pistol
   m_TagString: Untagged
@@ -35,27 +35,6 @@ Transform:
   - {fileID: 5198152142576931019}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2393850155860798891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 246249162497710486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a30e105ee5d40d84a8a9017b59d4bff3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weapons.Types.PistolWeapon
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 1195056985496502904}
-  _networkObjectCache: {fileID: 1195056985496502904}
-  weaponModel: {fileID: 4857232776321796721}
-  fireRate: 1
-  reloadTime: 3
-  damage: 10
-  maxAmmo: 12
-  currentAmmo: 0
 --- !u!114 &1195056985496502904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +112,7 @@ MonoBehaviour:
   _componentConfiguration: 0
   _synchronizeParent: 1
   _packing:
-    Position: 1
+    Position: 2
     Rotation: 2
     Scale: 1
   _useScaledTime: 1
@@ -144,7 +123,7 @@ MonoBehaviour:
   _clientAuthoritative: 1
   _sendToOwner: 1
   _interval: 1
-  _synchronizePosition: 0
+  _synchronizePosition: 1
   _positionSensitivity: 0.001
   _positionSnapping:
     X: 0
@@ -161,6 +140,27 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
+--- !u!114 &2393850155860798891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246249162497710486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a30e105ee5d40d84a8a9017b59d4bff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Weapons.Types.PistolWeapon
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 1195056985496502904}
+  _networkObjectCache: {fileID: 1195056985496502904}
+  weaponModel: {fileID: 4857232776321796721}
+  fireRate: 1
+  reloadTime: 3
+  damage: 10
+  maxAmmo: 12
+  currentAmmo: 0
 --- !u!1001 &5740174898606028576
 PrefabInstance:
   m_ObjectHideFlags: 0

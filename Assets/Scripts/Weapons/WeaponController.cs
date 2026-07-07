@@ -2,10 +2,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 using FishNet.Object;
+using FishNet.Connection;
 
 using Inspector;
-using System;
-using FishNet.Connection;
 
 namespace Weapons
 {
@@ -32,13 +31,7 @@ namespace Weapons
 
             weaponActionRef.action.Enable();
 
-            //if (ServerManager.Started)
-            //{
-            //    Debug.Log($"Server Manager: Is Started - {ServerManager.Started}");
-                ServerRpc_SpawnWeapon(LocalConnection);
-            //}
-            //else
-            //    Debug.LogWarning($"Server Manager has not been started yet. Is Host - {IsHostStarted}");
+            ServerRpc_SpawnWeapon(LocalConnection);
         }
 
         public override void OnStopClient()

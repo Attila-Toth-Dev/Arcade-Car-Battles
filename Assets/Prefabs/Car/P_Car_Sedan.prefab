@@ -623,7 +623,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2175095599663053255}
-  - component: {fileID: 7659457454169941272}
+  - component: {fileID: 8200266632262210403}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -646,7 +646,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4143943610105270245}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &7659457454169941272
+--- !u!114 &8200266632262210403
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -655,9 +655,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8428269079282393338}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bc555ca218d19042b4206ef54e95ea1, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weapons.WeaponAttachPoint
+  m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 2303521890887374736}
   _networkObjectCache: {fileID: 0}
