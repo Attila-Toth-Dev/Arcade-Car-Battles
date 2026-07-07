@@ -74,13 +74,14 @@ namespace Weapons
             Debug.Log($"Client requesting to spawn weapon: {_conn.ClientId}");
 
             NetworkObject nob = Instantiate(currentWeapon);
-            Spawn(nob, _conn, gameObject.scene);
 
             if(weaponAttachPoint.TryGetComponent(out NetworkBehaviour behaviour))
                 nob.SetParent(behaviour);
 
             nob.transform.localPosition = Vector3.zero;
             nob.transform.localRotation = Quaternion.identity;
+
+            Spawn(nob, _conn, gameObject.scene);
         } 
 
         #endregion
