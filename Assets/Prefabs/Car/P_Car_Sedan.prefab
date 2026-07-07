@@ -346,6 +346,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 2303521890887374736}
   _networkObjectCache: {fileID: 2303521890887374736}
   playerCamera: {fileID: 213117041334842499}
+  listener: {fileID: 4779787295693619836}
   target: {fileID: 4143943610105270245}
   cameraHeight: 12
   cameraDistance: 6

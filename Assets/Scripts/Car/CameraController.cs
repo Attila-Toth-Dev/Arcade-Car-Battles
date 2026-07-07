@@ -8,6 +8,7 @@ namespace Car
     {
         [Header("References")]
         [SerializeField] private Camera playerCamera;
+        [SerializeField] private AudioListener listener;
         [SerializeField] private Transform target;
 
         [Header("Properties")]
@@ -20,6 +21,7 @@ namespace Car
 
             if(!base.IsOwner)
             {
+                listener.gameObject.SetActive(false);
                 gameObject.SetActive(false);
                 return;
             }

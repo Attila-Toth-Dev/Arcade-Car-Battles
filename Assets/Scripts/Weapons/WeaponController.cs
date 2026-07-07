@@ -70,16 +70,11 @@ namespace Weapons
         [ServerRpc(RequireOwnership = false)]
         private void ServerRpc_SpawnWeapon(NetworkConnection _conn)
         {
-            Debug.Log($"Client requesting to spawn weapon: {_conn.ClientId}, Is Host: {_conn.IsHost}");
-
             NetworkObject nob = Instantiate(currentWeapon);
             ServerManager.Spawn(nob, _conn);
 
             if(weaponAttachPoint.TryGetComponent(out NetworkBehaviour attachNob))
-            {
-                Debug.Log($"Attach Nob is - {attachNob.name}");
                 nob.SetParent(attachNob);
-            }
 
             nob.transform.localPosition = Vector3.zero;
             nob.transform.localRotation = Quaternion.identity;
