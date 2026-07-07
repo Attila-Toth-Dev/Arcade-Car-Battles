@@ -81,8 +81,12 @@ namespace Weapons
 
             NetworkObject nob = Instantiate(currentWeapon);
 
-            nob.SetParent(this);
-            nob.transform.SetParent(weaponAttachPoint.transform);
+            if(weaponAttachPoint.TryGetComponent(out NetworkBehaviour attachNob))
+            {
+                Debug.Log($"Attach Nob is - {attachNob.name}");
+                nob.SetParent(attachNob);
+            }
+
             nob.transform.localPosition = Vector3.zero;
             nob.transform.localRotation = Quaternion.identity;
             
