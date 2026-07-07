@@ -32,7 +32,13 @@ namespace Weapons
 
             weaponActionRef.action.Enable();
 
-            ServerRpc_SpawnWeapon(LocalConnection);
+            if (ServerManager.Started)
+            {
+                Debug.Log($"Server Manager: Is Started - {ServerManager.Started}");
+                ServerRpc_SpawnWeapon(LocalConnection);
+            }
+            else
+                Debug.LogWarning($"Server Manager has not been started yet. Is Host - {IsHostStarted}");
         }
 
         public override void OnStopClient()
@@ -51,11 +57,11 @@ namespace Weapons
                 return;
 
             InputHandler();
-
-            if(isAiming)
-            {
-                currentWeapon.Fire();
-            }
+            
+            //if(isAiming)
+            //{
+            //    currentWeapon.Fire();
+            //}
         }
 
         private void InputHandler()
@@ -71,7 +77,7 @@ namespace Weapons
         [ServerRpc(RequireOwnership = false)]
         private void ServerRpc_SpawnWeapon(NetworkConnection _conn)
         {
-            Debug.Log($"Client requesting to spawn weapon: {_conn.ClientId}");
+            Debug.Log($"Client requesting to spawn weapon: {_conn.ClientId}, Is Host: {_conn.IsHost}");
 
             NetworkObject nob = Instantiate(currentWeapon);
 

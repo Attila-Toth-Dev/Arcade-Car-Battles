@@ -6,7 +6,6 @@ namespace Weapons.Types
     {
         public override void Fire()
         {
-            Debug.Log("Pistol Fired");
         }
 
         public override void Init()
