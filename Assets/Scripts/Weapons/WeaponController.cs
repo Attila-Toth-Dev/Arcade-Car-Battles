@@ -13,7 +13,7 @@ namespace Weapons
     {
         [Header("References")]
         [SerializeField] private BaseWeapon currentWeapon;
-        [SerializeField] private NetworkObject weaponAttachPoint;
+        [SerializeField] private Transform weaponAttachPoint;
 
         [Header("Input References")]
         [SerializeField] private InputActionReference weaponActionRef;
@@ -73,12 +73,13 @@ namespace Weapons
         {
             Debug.Log($"Client requesting to spawn weapon: {_conn.ClientId}");
 
-            NetworkObject nob = Instantiate(currentWeapon, weaponAttachPoint.transform.position, Quaternion.identity);
+            NetworkObject nob = Instantiate(currentWeapon);
             ServerManager.Spawn(nob, _conn);
 
-            if(weaponAttachPoint.TryGetComponent(out NetworkBehaviour behaviour))
-                nob.SetParent(behaviour);
-            
+            NetworkBehaviour rootNob = weaponAttachPoint.GetComponentInParent<NetworkBehaviour>();
+            nob.SetParent(rootNob);
+
+            nob.transform.SetParent(weaponAttachPoint.transform);
             nob.transform.localPosition = Vector3.zero;
             nob.transform.localRotation = Quaternion.identity;
         } 
