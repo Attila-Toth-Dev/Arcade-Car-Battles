@@ -78,9 +78,9 @@ namespace Weapons
 
             if(weaponAttachPoint.TryGetComponent(out NetworkBehaviour behaviour))
                 nob.SetParent(behaviour);
-            
-            //nob.transform.localPosition = weaponAttachPoint.transform.localPosition;
-            //nob.transform.localRotation = weaponAttachPoint.transform.localRotation;
+
+            nob.transform.localPosition = Vector3.zero;
+            nob.transform.localRotation = Quaternion.identity;
         } 
 
         #endregion
