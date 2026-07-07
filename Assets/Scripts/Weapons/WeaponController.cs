@@ -32,13 +32,13 @@ namespace Weapons
 
             weaponActionRef.action.Enable();
 
-            if (ServerManager.Started)
-            {
-                Debug.Log($"Server Manager: Is Started - {ServerManager.Started}");
+            //if (ServerManager.Started)
+            //{
+            //    Debug.Log($"Server Manager: Is Started - {ServerManager.Started}");
                 ServerRpc_SpawnWeapon(LocalConnection);
-            }
-            else
-                Debug.LogWarning($"Server Manager has not been started yet. Is Host - {IsHostStarted}");
+            //}
+            //else
+            //    Debug.LogWarning($"Server Manager has not been started yet. Is Host - {IsHostStarted}");
         }
 
         public override void OnStopClient()
