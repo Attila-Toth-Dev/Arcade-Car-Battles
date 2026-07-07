@@ -74,10 +74,10 @@ namespace Weapons
             NetworkObject nob = Instantiate(currentWeapon);
             Spawn(nob, _conn, gameObject.scene);
 
-            //nob.SetParent(weaponAttachPoint);
-            //
-            //nob.transform.localPosition = weaponAttachPoint.transform.localPosition;
-            //nob.transform.localRotation = weaponAttachPoint.transform.localRotation;
+            nob.SetParent(weaponAttachPoint);
+            
+            nob.transform.localPosition = weaponAttachPoint.transform.localPosition;
+            nob.transform.localRotation = weaponAttachPoint.transform.localRotation;
         } 
 
         #endregion
