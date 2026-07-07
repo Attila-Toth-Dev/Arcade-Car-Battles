@@ -11,7 +11,7 @@ namespace Weapons
     {
         [Header("References")]
         [SerializeField] private BaseWeapon currentWeapon;
-        [SerializeField] private Transform weaponAttachPoint;
+        [SerializeField] private NetworkObject weaponAttachPoint;
 
         [Header("Input References")]
         [SerializeField] private InputActionReference weaponActionRef;
@@ -30,12 +30,13 @@ namespace Weapons
 
             weaponActionRef.action.Enable();
 
-            NetworkObject nob = NetworkManager.GetPooledInstantiated(currentWeapon, weaponAttachPoint, true);
-            //nob.transform.SetParent(weaponAttachPoint, false);
-            //nob.transform.localPosition = Vector3.zero;
-            //nob.transform.localRotation = Quaternion.identity;
-
+            NetworkObject nob = NetworkManager.GetPooledInstantiated(currentWeapon, weaponAttachPoint.transform, true);
             ServerManager.Spawn(nob, base.Owner);
+
+            nob.transform.localPosition = weaponAttachPoint.transform.localPosition;
+            nob.transform.localRotation = weaponAttachPoint.transform.localRotation;
+
+            nob.SetParent(weaponAttachPoint);
         }
 
         public override void OnStopClient()
