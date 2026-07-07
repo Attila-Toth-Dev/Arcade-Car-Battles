@@ -71,11 +71,13 @@ namespace Weapons
         [ServerRpc(RequireOwnership = false)]
         private void ServerRpc_SpawnWeapon(NetworkConnection _conn)
         {
-            NetworkObject nob = NetworkManager.GetPooledInstantiated(currentWeapon, weaponAttachPoint.transform, true);
-            ServerManager.Spawn(nob, _conn);
+            NetworkObject nob = Instantiate(currentWeapon);
+            Spawn(nob, _conn, gameObject.scene);
 
-            nob.transform.localPosition = weaponAttachPoint.transform.localPosition;
-            nob.transform.localRotation = weaponAttachPoint.transform.localRotation;
+            //nob.SetParent(weaponAttachPoint);
+            //
+            //nob.transform.localPosition = weaponAttachPoint.transform.localPosition;
+            //nob.transform.localRotation = weaponAttachPoint.transform.localRotation;
         } 
 
         #endregion
