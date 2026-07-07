@@ -71,6 +71,8 @@ namespace Weapons
         [ServerRpc(RequireOwnership = false)]
         private void ServerRpc_SpawnWeapon(NetworkConnection _conn)
         {
+            Debug.Log($"Client requesting to spawn weapon: {_conn.ClientId}");
+
             NetworkObject nob = Instantiate(currentWeapon);
             Spawn(nob, _conn, gameObject.scene);
 
