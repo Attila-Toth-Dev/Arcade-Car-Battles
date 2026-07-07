@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 using FishNet.Object;
 
 using Inspector;
+using System;
+using FishNet.Connection;
 
 namespace Weapons
 {
@@ -30,13 +32,7 @@ namespace Weapons
 
             weaponActionRef.action.Enable();
 
-            NetworkObject nob = NetworkManager.GetPooledInstantiated(currentWeapon, weaponAttachPoint.transform, true);
-            ServerManager.Spawn(nob, base.Owner);
-
-            nob.transform.localPosition = weaponAttachPoint.transform.localPosition;
-            nob.transform.localRotation = weaponAttachPoint.transform.localRotation;
-
-            nob.SetParent(weaponAttachPoint);
+            ServerRpc_SpawnWeapon(LocalConnection);
         }
 
         public override void OnStopClient()
@@ -69,5 +65,19 @@ namespace Weapons
             isFiring = weaponActionRef.action.triggered;
             isAiming = weaponInput.y > 0.0f || weaponInput.x > 0.0f;
         }
+
+        #region RPC Functions
+
+        [ServerRpc(RequireOwnership = false)]
+        private void ServerRpc_SpawnWeapon(NetworkConnection _conn)
+        {
+            NetworkObject nob = NetworkManager.GetPooledInstantiated(currentWeapon, weaponAttachPoint.transform, true);
+            ServerManager.Spawn(nob, _conn);
+
+            nob.transform.localPosition = weaponAttachPoint.transform.localPosition;
+            nob.transform.localRotation = weaponAttachPoint.transform.localRotation;
+        } 
+
+        #endregion
     }
 }
