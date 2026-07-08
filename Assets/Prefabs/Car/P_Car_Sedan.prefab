@@ -51,7 +51,7 @@ MonoBehaviour:
   _componentConfiguration: 2
   _synchronizeParent: 0
   _packing:
-    Position: 1
+    Position: 2
     Rotation: 2
     Scale: 1
   _useScaledTime: 1
@@ -62,7 +62,7 @@ MonoBehaviour:
   _clientAuthoritative: 1
   _sendToOwner: 1
   _interval: 1
-  _synchronizePosition: 0
+  _synchronizePosition: 1
   _positionSensitivity: 0.001
   _positionSnapping:
     X: 0
