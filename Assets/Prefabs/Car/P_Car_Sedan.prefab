@@ -242,8 +242,6 @@ MonoBehaviour:
   _componentIndexCache: 3
   _addedNetworkObject: {fileID: 2303521890887374736}
   _networkObjectCache: {fileID: 2303521890887374736}
-  camera: {fileID: 213117041334842499}
-  listener: {fileID: 4779787295693619836}
   target: {fileID: 4143943610105270245}
   cameraHeight: 12
   cameraDistance: 6
@@ -411,9 +409,9 @@ MonoBehaviour:
   - {fileID: 21690873261010002}
   - {fileID: 7872681360481164795}
   - {fileID: 2114228729849838641}
+  - {fileID: 8200266632262210403}
   InitializedParentNetworkBehaviour: {fileID: 0}
-  InitializedNestedNetworkObjects:
-  - {fileID: 0}
+  InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
   RuntimeChildNetworkBehaviours: []
   _isNetworked: 1
@@ -422,7 +420,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _preventDespawnOnDisconnect: 0
   _defaultDespawnType: 0
-  _initializedTimestamp: -8584181780841817895
+  _initializedTimestamp: -8584180895057841553
   _localLevelOfDetailCalculationType: 0
   _useLevelOfDetail: 0
   _useRootLevelOfDetail: 1
@@ -473,7 +471,6 @@ MonoBehaviour:
   camera: {fileID: 7872681360481164795}
   maxSpeed: 50
   acceleration: 15
-  deceleration: 20
   maxSteerAngle: 20
   steeringSensCurve:
     serializedVersion: 2
@@ -508,11 +505,13 @@ MonoBehaviour:
   moveActionRef: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   moveInput: {x: 0, y: 0}
   currentSpeed: 0
+  clampedSpeed: 0
   setSpeed: 0
   rotationDirection: {x: 0, y: 0, z: 0}
   stickAngle: 0
   targetAngle: 0
   turnVelocity: 0
+  setSteer: 0
 --- !u!114 &-8402952135297063246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,9 +656,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
-  _componentIndexCache: 255
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 2303521890887374736}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 2303521890887374736}
 --- !u!1 &9009442155519577361
 GameObject:
   m_ObjectHideFlags: 0
