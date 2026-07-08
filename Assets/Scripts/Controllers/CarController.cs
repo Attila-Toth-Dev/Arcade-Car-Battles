@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using FishNet.Object;
 
 using Inspector;
+using System;
 
 namespace Controllers
 {
@@ -105,11 +106,26 @@ namespace Controllers
 
             GroundCheck();
 
-            MoveCar();
-            RotateCar();
+            //MoveCar();
+            //RotateCar();
+
+            //RotateCarBody();
+            
+            ServerRpc_SendClientInput(moveInput);
+        }
+
+        #region RPC Functions
+
+        [ServerRpc]
+        private void ServerRpc_SendClientInput(Vector2 _moveInput)
+        {
+            MoveCar(moveInput);
+            RotateCar(moveInput);
 
             RotateCarBody();
         }
+
+        #endregion
 
         #region Update Functions
 
@@ -140,18 +156,18 @@ namespace Controllers
             isGrounded = UnityEngine.Physics.Raycast(parent.transform.position, Vector3.down, out hitOn, rayDistance, layerMask);
         }
 
-        private void MoveCar()
+        private void MoveCar(Vector2 _moveInput)
         {
-            Vector3 moveDir = (camera.Forward * moveInput.y) + (camera.Right * moveInput.x);
+            Vector3 moveDir = (camera.Forward * _moveInput.y) + (camera.Right * _moveInput.x);
             rigidBody.AddForce(moveDir * currentSpeed, ForceMode.Acceleration);
         }
 
-        private void RotateCar()
+        private void RotateCar(Vector2 _moveInput)
         {
             if (moveInput.magnitude == 0)
                 return;
 
-            rotationDirection = (camera.Forward * moveInput.y) + (camera.Right * moveInput.x);
+            rotationDirection = (camera.Forward * _moveInput.y) + (camera.Right * _moveInput.x);
             stickAngle = Mathf.Atan2(rotationDirection.x, rotationDirection.z) * Mathf.Rad2Deg;
 
             targetAngle = Mathf.SmoothDampAngle(parent.eulerAngles.y, stickAngle, ref turnVelocity, Time.fixedDeltaTime * setSteer);
