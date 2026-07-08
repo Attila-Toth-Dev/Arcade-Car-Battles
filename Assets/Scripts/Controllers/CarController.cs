@@ -106,12 +106,12 @@ namespace Controllers
 
             GroundCheck();
 
-            //MoveCar();
-            //RotateCar();
-            //
-            //RotateCarBody();
+            MoveCar(moveInput);
+            RotateCar(moveInput);
+            
+            RotateCarBody();
 
-            ServerRpc_SendClientInput(moveInput);
+            //ServerRpc_SendClientInput(moveInput);
         }
 
         #region RPC Functions
