@@ -6,6 +6,7 @@ using FishNet.Connection;
 
 using Weapons;
 using Inspector;
+using System;
 
 namespace Controllers
 {
@@ -14,14 +15,24 @@ namespace Controllers
         [Header("References")]
         [SerializeField] private BaseWeapon currentWeapon;
         [SerializeField] private Transform weaponAttachPoint;
+        [SerializeField] private new CameraController camera;
 
+        [Header("Weapon Properties")]
+        [SerializeField] private float maxRotation;
+        [SerializeField] private AnimationCurve rotationSensCurve;
+ 
         [Header("Input References")]
         [SerializeField] private InputActionReference weaponActionRef;
 
         [Header("Debugging - Input")]
         [SerializeField, ReadOnly] private Vector2 weaponInput;
-        [SerializeField, ReadOnly] private bool isFiring;
-        [SerializeField, ReadOnly] private bool isAiming;
+
+        [Header("Debugging - Rotation")]
+        [SerializeField, ReadOnly] private Vector3 rotationDirection;
+        [SerializeField, ReadOnly] private float stickAngle;
+        [SerializeField, ReadOnly] private float targetAngle;
+        [SerializeField, ReadOnly] private float turnVelocity;
+        [SerializeField, ReadOnly] private float setRotation;
 
         public override void OnStartClient()
         {
@@ -51,19 +62,16 @@ namespace Controllers
                 return;
 
             InputHandler();
-            
-            //if(isAiming)
-            //{
-            //    currentWeapon.Fire();
-            //}
+
+            CalculateRotation();
         }
 
-        private void InputHandler()
+        private void FixedUpdate()
         {
-            weaponInput = weaponActionRef.action.ReadValue<Vector2>();
+            if (!base.IsOwner)
+                return;
 
-            isFiring = weaponActionRef.action.triggered;
-            isAiming = weaponInput.y > 0.0f || weaponInput.x > 0.0f;
+            RotateWeapon();
         }
 
         #region RPC Functions
@@ -74,12 +82,43 @@ namespace Controllers
             NetworkObject nob = Instantiate(currentWeapon);
             ServerManager.Spawn(nob, _conn);
 
-            if(weaponAttachPoint.TryGetComponent(out NetworkBehaviour attachNob))
+            if (weaponAttachPoint.TryGetComponent(out NetworkBehaviour attachNob))
                 nob.SetParent(attachNob);
 
             nob.transform.localPosition = Vector3.zero;
             nob.transform.localRotation = Quaternion.identity;
-        } 
+        }
+
+        #endregion
+
+        #region Update Functions
+
+        private void InputHandler()
+        {
+            weaponInput = weaponActionRef.action.ReadValue<Vector2>();
+        }
+
+        private void CalculateRotation()
+        {
+            setRotation = rotationSensCurve.Evaluate(weaponInput.magnitude) * maxRotation;
+        }
+
+        #endregion
+
+        #region Fixed Update Functions
+
+        private void RotateWeapon()
+        {
+            if (weaponInput.magnitude == 0)
+                return;
+
+            rotationDirection = (camera.Forward * weaponInput.y) + (camera.Right * weaponInput.x);
+            stickAngle = Mathf.Atan2(rotationDirection.x, rotationDirection.z) * Mathf.Rad2Deg;
+
+            targetAngle = Mathf.SmoothDampAngle(weaponAttachPoint.eulerAngles.y, stickAngle, ref turnVelocity, Time.fixedDeltaTime * setRotation);
+
+            weaponAttachPoint.rotation = Quaternion.Euler(0.0f, targetAngle, 0.0f);
+        }
 
         #endregion
     }
