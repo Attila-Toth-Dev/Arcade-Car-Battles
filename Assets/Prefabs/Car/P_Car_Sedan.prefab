@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1307262067485701917}
-  - component: {fileID: 2114228729849838641}
+  - component: {fileID: 7251357559595948267}
   m_Layer: 0
   m_Name: Normal
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 7777523085607614467}
   m_Father: {fileID: 1919785509379433900}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2114228729849838641
+--- !u!114 &7251357559595948267
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,14 +45,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
-  _componentIndexCache: 4
+  _componentIndexCache: 255
   _addedNetworkObject: {fileID: 2303521890887374736}
-  _networkObjectCache: {fileID: 2303521890887374736}
+  _networkObjectCache: {fileID: 0}
   _componentConfiguration: 2
   _synchronizeParent: 0
   _packing:
-    Position: 2
-    Rotation: 2
+    Position: 0
+    Rotation: 0
     Scale: 1
   _useScaledTime: 1
   _interpolation: 2
@@ -242,6 +242,7 @@ MonoBehaviour:
   _componentIndexCache: 3
   _addedNetworkObject: {fileID: 2303521890887374736}
   _networkObjectCache: {fileID: 2303521890887374736}
+  camera: {fileID: 213117041334842499}
   target: {fileID: 4143943610105270245}
   cameraHeight: 12
   cameraDistance: 6
@@ -406,9 +407,9 @@ MonoBehaviour:
   NetworkBehaviours:
   - {fileID: 7585119977071486847}
   - {fileID: -8402952135297063246}
-  - {fileID: 21690873261010002}
+  - {fileID: 0}
   - {fileID: 7872681360481164795}
-  - {fileID: 2114228729849838641}
+  - {fileID: 0}
   - {fileID: 8200266632262210403}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
@@ -542,7 +543,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1919785509379433900}
-  - component: {fileID: 21690873261010002}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -566,52 +566,6 @@ Transform:
   - {fileID: 1307262067485701917}
   m_Father: {fileID: 8470269582985431358}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &21690873261010002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8025974037282059366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
-  _componentIndexCache: 2
-  _addedNetworkObject: {fileID: 2303521890887374736}
-  _networkObjectCache: {fileID: 2303521890887374736}
-  _componentConfiguration: 2
-  _synchronizeParent: 0
-  _packing:
-    Position: 2
-    Rotation: 2
-    Scale: 1
-  _useScaledTime: 1
-  _interpolation: 2
-  _extrapolation: 2
-  _enableTeleport: 0
-  _teleportThreshold: 1
-  _clientAuthoritative: 1
-  _sendToOwner: 1
-  _interval: 1
-  _synchronizePosition: 1
-  _positionSensitivity: 0.001
-  _positionSnapping:
-    X: 0
-    Y: 0
-    Z: 0
-  _synchronizeRotation: 1
-  _rotationSnapping:
-    X: 0
-    Y: 0
-    Z: 0
-  _synchronizeScale: 0
-  _scaleSensitivity: 0.001
-  _scaleSnapping:
-    X: 0
-    Y: 0
-    Z: 0
 --- !u!1 &8428269079282393338
 GameObject:
   m_ObjectHideFlags: 0

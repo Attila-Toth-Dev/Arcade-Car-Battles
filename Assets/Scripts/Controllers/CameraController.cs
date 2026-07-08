@@ -16,19 +16,18 @@ namespace Controllers
         public Vector3 Right
         {
             get => right;
-        } 
+        }
 
         #endregion
 
         [Header("References")]
+        [SerializeField] private new Camera camera;
         [SerializeField] private Transform target;
 
         [Header("Properties")]
         [SerializeField] private float cameraHeight = 6.0f;
         [SerializeField] private float cameraDistance = 6.0f;
 
-        private new Camera camera;
-        
         private Vector3 forward;
         private Vector3 right;
 
@@ -41,9 +40,6 @@ namespace Controllers
                 gameObject.SetActive(false);
                 return;
             }
-
-            if (camera == null)
-                camera = GetComponent<Camera>();
 
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;

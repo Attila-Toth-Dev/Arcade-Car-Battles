@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 using FishNet.Object;
 
-using Physics;
 using Inspector;
 
 namespace Controllers
@@ -18,10 +17,6 @@ namespace Controllers
         } 
 
         #endregion
-
-        // -- STEERING CONSTANTS -- //
-        private const float STEERING_SENSITIVITY = 5.0f;
-        private const float VALID_STEERING_THRESHOLD = 0.5f;
 
         // -- BODY ROTATION CONSTANTS -- //
         private const float BODY_ROTATE_SPEED = 5.0f;
