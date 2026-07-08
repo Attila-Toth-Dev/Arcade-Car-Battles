@@ -4,9 +4,10 @@ using UnityEngine.InputSystem;
 using FishNet.Object;
 using FishNet.Connection;
 
+using Weapons;
 using Inspector;
 
-namespace Weapons
+namespace Controllers
 {
     public class WeaponController : NetworkBehaviour
     {

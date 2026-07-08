@@ -2,7 +2,9 @@ using UnityEngine;
 
 using FishNet.Object;
 
-namespace Car
+using Inspector;
+
+namespace Controllers
 {
     public class CameraController : NetworkBehaviour
     {
@@ -14,6 +16,10 @@ namespace Car
         [Header("Properties")]
         [SerializeField] private float cameraHeight = 6.0f;
         [SerializeField] private float cameraDistance = 6.0f;
+
+        [Header("Debugging")]
+        [SerializeField, ReadOnly] private Vector3 cameraForward;
+        [SerializeField, ReadOnly] private Vector3 cameraRight;
 
         public override void OnStartClient()
         {
@@ -55,7 +61,7 @@ namespace Car
             }
 
             Vector3 camPos = new Vector3(target.position.x - cameraDistance, target.position.y + cameraHeight, target.position.z - cameraDistance);
-            
+
             playerCamera.transform.position = camPos;
             playerCamera.transform.LookAt(target);
         }

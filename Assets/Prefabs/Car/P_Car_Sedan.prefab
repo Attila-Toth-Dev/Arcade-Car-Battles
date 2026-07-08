@@ -201,10 +201,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5128950479463004495}
+  - component: {fileID: 7872681360481164795}
   - component: {fileID: 213117041334842499}
   - component: {fileID: 4779787295693619836}
   - component: {fileID: 1009135982144597083}
-  - component: {fileID: 7872681360481164795}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -227,6 +227,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8470269582985431358}
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+--- !u!114 &7872681360481164795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5933147494677466907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b1426c9f404df42b0b51dc48eaf1ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Car.CameraController
+  _componentIndexCache: 3
+  _addedNetworkObject: {fileID: 2303521890887374736}
+  _networkObjectCache: {fileID: 2303521890887374736}
+  playerCamera: {fileID: 213117041334842499}
+  listener: {fileID: 4779787295693619836}
+  target: {fileID: 4143943610105270245}
+  cameraHeight: 12
+  cameraDistance: 6
+  cameraForward: {x: 0, y: 0, z: 0}
+  cameraRight: {x: 0, y: 0, z: 0}
 --- !u!20 &213117041334842499
 Camera:
   m_ObjectHideFlags: 0
@@ -330,26 +352,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!114 &7872681360481164795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5933147494677466907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7b1426c9f404df42b0b51dc48eaf1ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Car.CameraController
-  _componentIndexCache: 3
-  _addedNetworkObject: {fileID: 2303521890887374736}
-  _networkObjectCache: {fileID: 2303521890887374736}
-  playerCamera: {fileID: 213117041334842499}
-  listener: {fileID: 4779787295693619836}
-  target: {fileID: 4143943610105270245}
-  cameraHeight: 12
-  cameraDistance: 6
 --- !u!1 &7294968795295978340
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,9 +361,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8470269582985431358}
+  - component: {fileID: 2303521890887374736}
   - component: {fileID: 7585119977071486847}
   - component: {fileID: -8402952135297063246}
-  - component: {fileID: 2303521890887374736}
   m_Layer: 0
   m_Name: P_Car_Sedan
   m_TagString: Untagged
@@ -387,92 +389,6 @@ Transform:
   - {fileID: 5128950479463004495}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7585119977071486847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7294968795295978340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad22957a337f1594ba69edd3f0ba0c78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Car.CarController
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 2303521890887374736}
-  _networkObjectCache: {fileID: 2303521890887374736}
-  carRb: {fileID: 9073975740902891230}
-  carModel: {fileID: 4143943610105270245}
-  carParent: {fileID: 1919785509379433900}
-  carNormal: {fileID: 1307262067485701917}
-  maxSpeed: 50
-  acceleration: 15
-  deceleration: 20
-  maxSteerAngle: 20
-  steeringSensCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.25
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1.5
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  gravity: 9.81
-  colliderOffset: 0.5
-  rayDistance: 1.1
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  isGrounded: 0
-  moveActionRef: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  moveInput: {x: 0, y: 0}
-  isAccelerating: 0
-  isDecelerating: 0
-  isReversing: 0
-  isSteering: 0
-  currentSpeed: 0
-  speed: 0
-  currentRotate: 0
-  rotate: 0
-  amount: 0
---- !u!114 &-8402952135297063246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7294968795295978340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f0c7ddfc7fd0074ab5c2cc8f8fd4aa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  _componentIndexCache: 1
-  _addedNetworkObject: {fileID: 2303521890887374736}
-  _networkObjectCache: {fileID: 2303521890887374736}
-  currentWeapon: {fileID: 2393850155860798891, guid: 211a09ebd025fdb4193b81072124fa14, type: 3}
-  weaponAttachPoint: {fileID: 2175095599663053255}
-  weaponActionRef: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  weaponInput: {x: 0, y: 0}
-  isFiring: 0
-  isAiming: 0
 --- !u!114 &2303521890887374736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,6 +452,91 @@ MonoBehaviour:
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     Scale: {x: 1, y: 1, z: 1}
     IsValid: 1
+--- !u!114 &7585119977071486847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294968795295978340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad22957a337f1594ba69edd3f0ba0c78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Car.CarController
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 2303521890887374736}
+  _networkObjectCache: {fileID: 2303521890887374736}
+  carCollider: {fileID: 8425380108939131726}
+  carRb: {fileID: 9073975740902891230}
+  carModel: {fileID: 4143943610105270245}
+  carParent: {fileID: 1919785509379433900}
+  carNormal: {fileID: 1307262067485701917}
+  cameraController: {fileID: 7872681360481164795}
+  maxSpeed: 50
+  acceleration: 15
+  deceleration: 20
+  maxSteerAngle: 20
+  steeringSensCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.25
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1.5
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  colliderOffset: 0.5
+  rayDistance: 1.1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  isGrounded: 0
+  moveActionRef: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  moveInput: {x: 0, y: 0}
+  isAccelerating: 0
+  isSteering: 0
+  currentSpeed: 0
+  setSpeed: 0
+  currentRotate: 0
+  setRotate: 0
+  amount: 0
+--- !u!114 &-8402952135297063246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294968795295978340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f0c7ddfc7fd0074ab5c2cc8f8fd4aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _componentIndexCache: 1
+  _addedNetworkObject: {fileID: 2303521890887374736}
+  _networkObjectCache: {fileID: 2303521890887374736}
+  currentWeapon: {fileID: 2393850155860798891, guid: 211a09ebd025fdb4193b81072124fa14, type: 3}
+  weaponAttachPoint: {fileID: 2175095599663053255}
+  weaponActionRef: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  weaponInput: {x: 0, y: 0}
+  isFiring: 0
+  isAiming: 0
 --- !u!1 &8025974037282059366
 GameObject:
   m_ObjectHideFlags: 0

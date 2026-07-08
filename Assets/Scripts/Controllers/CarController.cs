@@ -3,12 +3,22 @@ using UnityEngine.InputSystem;
 
 using FishNet.Object;
 
+using Physics;
 using Inspector;
 
-namespace Car
+namespace Controllers
 {
     public class CarController : NetworkBehaviour
     {
+        #region Getters & Setters
+        
+        public float ColliderRadius
+        {
+            get => carCollider.radius;
+        } 
+
+        #endregion
+
         // -- STEERING CONSTANTS -- //
         private const float STEERING_SENSITIVITY = 5.0f;
         private const float VALID_STEERING_THRESHOLD = 0.5f;
@@ -17,10 +27,12 @@ namespace Car
         private const float BODY_ROTATE_SPEED = 5.0f;
 
         [Header("References")]
+        [SerializeField] private SphereCollider carCollider;
         [SerializeField] private Rigidbody carRb;
         [SerializeField] private Transform carModel;
         [SerializeField] private Transform carParent;
         [SerializeField] private Transform carNormal;
+        [SerializeField] private CameraController cameraController;
 
         [Header("Car Properties")]
         [SerializeField] private float maxSpeed;
@@ -30,7 +42,6 @@ namespace Car
         [SerializeField] private AnimationCurve steeringSensCurve;
 
         [Header("Physics Properties")]
-        [SerializeField] private float gravity = 9.81f;
         [SerializeField] private float colliderOffset = 0.5f;
         [SerializeField] private float rayDistance = 1.1f;
         [SerializeField] private LayerMask layerMask;
@@ -41,17 +52,16 @@ namespace Car
 
         [Header("Debugging - Input")]
         [SerializeField, ReadOnly] private Vector2 moveInput;
-        [SerializeField, ReadOnly] private bool isAccelerating;
-        [SerializeField, ReadOnly] private bool isSteering;
 
         [Header("Debugging - Acceleration")]
         [SerializeField, ReadOnly] private float currentSpeed;
-        [SerializeField, ReadOnly] private float speed;
+        [SerializeField, ReadOnly] private float setSpeed;
 
         [Header("Debugging - Steering")]
-        [SerializeField, ReadOnly] private float currentRotate;
-        [SerializeField, ReadOnly] private float rotate;
-        [SerializeField, ReadOnly] private float amount;
+        [SerializeField, ReadOnly] private float stickAngle;
+        //[SerializeField, ReadOnly] private float currentRotate;
+        //[SerializeField, ReadOnly] private float setRotate;
+        //[SerializeField, ReadOnly] private float amount;
 
         private Quaternion cachedRotation;
 
@@ -99,9 +109,8 @@ namespace Car
 
             GroundCheck();
 
-            ApplyAcceleration();
-            ApplySteering();
-            ApplyGravity();
+            MoveCar();
+            RotateCar();
 
             RotateCarBody();
         }
@@ -111,35 +120,26 @@ namespace Car
         private void InputHandler()
         {
             moveInput = moveActionRef.action.ReadValue<Vector2>();
-
-            isAccelerating = moveInput.y != 0.0f;
-            isSteering = moveInput.x != 0.0f;
         }
 
         private void CalculateAcceleration()
         {
-            if (isAccelerating)
-                speed = maxSpeed * moveInput.y;
-            else
-                speed = 0;
+            setSpeed = maxSpeed * Mathf.Abs(moveInput.sqrMagnitude);
 
-            currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * acceleration);
+            currentSpeed = Mathf.SmoothStep(currentSpeed, setSpeed, Time.deltaTime * acceleration);
         }
 
         private void CalculateSteering()
         {
-            if (isSteering)
-            {
-                float clampedSpeed = Mathf.Clamp01(currentSpeed / maxSpeed);
-                amount = steeringSensCurve.Evaluate(clampedSpeed);
-                
-                float dir = moveInput.x > 0 ? amount : -amount;
-                rotate = maxSteerAngle * dir;
-            }
-            else
-                rotate = 0;
+            
 
-            currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * deceleration);
+            //float clampedSpeed = Mathf.Clamp01(currentSpeed / maxSpeed);
+            //amount = steeringSensCurve.Evaluate(clampedSpeed);
+            //
+            //float dir = moveInput.x > 0 ? amount : -amount;
+            //setRotate = maxSteerAngle * dir;
+            //
+            //currentRotate = Mathf.Lerp(currentRotate, setRotate, Time.deltaTime * deceleration);
         }
 
         #endregion
@@ -148,22 +148,18 @@ namespace Car
 
         private void GroundCheck()
         {
-            isGrounded = Physics.Raycast(carParent.transform.position, Vector3.down, out hitOn, rayDistance, layerMask);
+            isGrounded = UnityEngine.Physics.Raycast(carParent.transform.position, Vector3.down, out hitOn, rayDistance, layerMask);
         }
 
-        private void ApplyAcceleration()
+        private void MoveCar()
         {
-            carRb.AddForce(carModel.transform.forward * currentSpeed, ForceMode.Acceleration);
+            Vector3 moveDir = (transform.forward * moveInput.y) + (transform.right * moveInput.x);
+            carRb.AddForce(moveDir * currentSpeed, ForceMode.Acceleration);
         }
 
-        private void ApplySteering()
+        private void RotateCar()
         {
-            carParent.transform.eulerAngles = Vector3.Lerp(carParent.transform.eulerAngles, new Vector3(0, carParent.transform.eulerAngles.y + currentRotate, 0), Time.fixedDeltaTime * STEERING_SENSITIVITY);
-        }
-
-        private void ApplyGravity()
-        {
-            carRb.AddForce(Vector3.down * gravity, ForceMode.Acceleration);
+            //carParent.transform.eulerAngles = Vector3.Lerp(carParent.transform.eulerAngles, new Vector3(0, carParent.transform.eulerAngles.y + currentRotate, 0), Time.fixedDeltaTime * STEERING_SENSITIVITY);
         }
 
         private void RotateCarBody()
