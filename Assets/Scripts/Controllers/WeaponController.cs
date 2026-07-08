@@ -120,7 +120,7 @@ namespace Controllers
 
             targetAngle = Mathf.SmoothDampAngle(weaponAttachPoint.eulerAngles.y, stickAngle, ref turnVelocity, Time.fixedDeltaTime * setRotation);
 
-            weaponAttachPoint.rotation = Quaternion.Euler(0.0f, -targetAngle, 0.0f);
+            weaponAttachPoint.rotation = Quaternion.Euler(0.0f, targetAngle, 0.0f);
         }
 
         #endregion
