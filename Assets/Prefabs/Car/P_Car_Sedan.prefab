@@ -497,7 +497,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  colliderOffset: 0.5
+  colliderOffset: 1
   rayDistance: 1.1
   layerMask:
     serializedVersion: 2
