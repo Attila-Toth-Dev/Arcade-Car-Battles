@@ -26,6 +26,7 @@ namespace Controllers
 
         [Header("Debugging - Input")]
         [SerializeField, ReadOnly] private Vector2 weaponInput;
+        [SerializeField, ReadOnly] private float magnitude;
 
         [Header("Debugging - Rotation")]
         [SerializeField, ReadOnly] private Vector3 rotationDirection;
@@ -96,6 +97,8 @@ namespace Controllers
         private void InputHandler()
         {
             weaponInput = weaponActionRef.action.ReadValue<Vector2>();
+
+            magnitude = weaponInput.magnitude;
         }
 
         private void CalculateRotation()
