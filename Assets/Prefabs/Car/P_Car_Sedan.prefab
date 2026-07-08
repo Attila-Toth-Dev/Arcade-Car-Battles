@@ -242,13 +242,11 @@ MonoBehaviour:
   _componentIndexCache: 3
   _addedNetworkObject: {fileID: 2303521890887374736}
   _networkObjectCache: {fileID: 2303521890887374736}
-  playerCamera: {fileID: 213117041334842499}
+  camera: {fileID: 213117041334842499}
   listener: {fileID: 4779787295693619836}
   target: {fileID: 4143943610105270245}
   cameraHeight: 12
   cameraDistance: 6
-  cameraForward: {x: 0, y: 0, z: 0}
-  cameraRight: {x: 0, y: 0, z: 0}
 --- !u!20 &213117041334842499
 Camera:
   m_ObjectHideFlags: 0
@@ -467,12 +465,12 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 2303521890887374736}
   _networkObjectCache: {fileID: 2303521890887374736}
+  model: {fileID: 4143943610105270245}
+  parent: {fileID: 7777523085607614467}
+  normal: {fileID: 1307262067485701917}
+  rigidBody: {fileID: 9073975740902891230}
   carCollider: {fileID: 8425380108939131726}
-  carRb: {fileID: 9073975740902891230}
-  carModel: {fileID: 4143943610105270245}
-  carParent: {fileID: 1919785509379433900}
-  carNormal: {fileID: 1307262067485701917}
-  cameraController: {fileID: 7872681360481164795}
+  camera: {fileID: 7872681360481164795}
   maxSpeed: 50
   acceleration: 15
   deceleration: 20
@@ -509,13 +507,12 @@ MonoBehaviour:
   isGrounded: 0
   moveActionRef: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   moveInput: {x: 0, y: 0}
-  isAccelerating: 0
-  isSteering: 0
   currentSpeed: 0
   setSpeed: 0
-  currentRotate: 0
-  setRotate: 0
-  amount: 0
+  rotationDirection: {x: 0, y: 0, z: 0}
+  stickAngle: 0
+  targetAngle: 0
+  turnVelocity: 0
 --- !u!114 &-8402952135297063246
 MonoBehaviour:
   m_ObjectHideFlags: 0

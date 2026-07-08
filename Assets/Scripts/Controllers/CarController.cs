@@ -27,17 +27,16 @@ namespace Controllers
         private const float BODY_ROTATE_SPEED = 5.0f;
 
         [Header("References")]
+        [SerializeField] private Transform model;
+        [SerializeField] private Transform parent;
+        [SerializeField] private Transform normal;
+        [SerializeField] private Rigidbody rigidBody;
         [SerializeField] private SphereCollider carCollider;
-        [SerializeField] private Rigidbody carRb;
-        [SerializeField] private Transform carModel;
-        [SerializeField] private Transform carParent;
-        [SerializeField] private Transform carNormal;
-        [SerializeField] private CameraController cameraController;
+        [SerializeField] private new CameraController camera;
 
         [Header("Car Properties")]
         [SerializeField] private float maxSpeed;
         [SerializeField] private float acceleration;
-        [SerializeField] private float deceleration;
         [SerializeField] private float maxSteerAngle;
         [SerializeField] private AnimationCurve steeringSensCurve;
 
@@ -55,13 +54,15 @@ namespace Controllers
 
         [Header("Debugging - Acceleration")]
         [SerializeField, ReadOnly] private float currentSpeed;
+        [SerializeField, ReadOnly] private float clampedSpeed;
         [SerializeField, ReadOnly] private float setSpeed;
 
         [Header("Debugging - Steering")]
+        [SerializeField, ReadOnly] private Vector3 rotationDirection;
         [SerializeField, ReadOnly] private float stickAngle;
-        //[SerializeField, ReadOnly] private float currentRotate;
-        //[SerializeField, ReadOnly] private float setRotate;
-        //[SerializeField, ReadOnly] private float amount;
+        [SerializeField, ReadOnly] private float targetAngle;
+        [SerializeField, ReadOnly] private float turnVelocity;
+        [SerializeField, ReadOnly] private float setSteer;
 
         private Quaternion cachedRotation;
 
@@ -76,7 +77,7 @@ namespace Controllers
             
             moveActionRef.action.Enable();
 
-            cachedRotation = new Quaternion(carNormal.rotation.x, carNormal.rotation.y, carNormal.rotation.z, 0.0f);
+            cachedRotation = new Quaternion(normal.rotation.x, normal.rotation.y, normal.rotation.z, 0.0f);
         }
 
         public override void OnStopClient()
@@ -94,7 +95,7 @@ namespace Controllers
             if (!base.IsOwner)
                 return;
 
-            carParent.position = carRb.transform.position - new Vector3(0, colliderOffset, 0);
+            parent.position = rigidBody.transform.position - new Vector3(0, colliderOffset, 0);
 
             InputHandler();
 
@@ -124,22 +125,15 @@ namespace Controllers
 
         private void CalculateAcceleration()
         {
-            setSpeed = maxSpeed * Mathf.Abs(moveInput.sqrMagnitude);
+            setSpeed = maxSpeed * moveInput.sqrMagnitude;
+            clampedSpeed = Mathf.Clamp01(currentSpeed / maxSpeed);
 
             currentSpeed = Mathf.SmoothStep(currentSpeed, setSpeed, Time.deltaTime * acceleration);
         }
 
         private void CalculateSteering()
         {
-            
-
-            //float clampedSpeed = Mathf.Clamp01(currentSpeed / maxSpeed);
-            //amount = steeringSensCurve.Evaluate(clampedSpeed);
-            //
-            //float dir = moveInput.x > 0 ? amount : -amount;
-            //setRotate = maxSteerAngle * dir;
-            //
-            //currentRotate = Mathf.Lerp(currentRotate, setRotate, Time.deltaTime * deceleration);
+            setSteer = steeringSensCurve.Evaluate(clampedSpeed) * maxSteerAngle;
         }
 
         #endregion
@@ -148,29 +142,37 @@ namespace Controllers
 
         private void GroundCheck()
         {
-            isGrounded = UnityEngine.Physics.Raycast(carParent.transform.position, Vector3.down, out hitOn, rayDistance, layerMask);
+            isGrounded = UnityEngine.Physics.Raycast(parent.transform.position, Vector3.down, out hitOn, rayDistance, layerMask);
         }
 
         private void MoveCar()
         {
-            Vector3 moveDir = (transform.forward * moveInput.y) + (transform.right * moveInput.x);
-            carRb.AddForce(moveDir * currentSpeed, ForceMode.Acceleration);
+            Vector3 moveDir = (camera.Forward * moveInput.y) + (camera.Right * moveInput.x);
+            rigidBody.AddForce(moveDir * currentSpeed, ForceMode.Acceleration);
         }
 
         private void RotateCar()
         {
-            //carParent.transform.eulerAngles = Vector3.Lerp(carParent.transform.eulerAngles, new Vector3(0, carParent.transform.eulerAngles.y + currentRotate, 0), Time.fixedDeltaTime * STEERING_SENSITIVITY);
+            if (moveInput.magnitude == 0)
+                return;
+
+            rotationDirection = (camera.Forward * moveInput.y) + (camera.Right * moveInput.x);
+            stickAngle = Mathf.Atan2(rotationDirection.x, rotationDirection.z) * Mathf.Rad2Deg;
+
+            targetAngle = Mathf.SmoothDampAngle(parent.eulerAngles.y, stickAngle, ref turnVelocity, Time.fixedDeltaTime * setSteer);
+
+            parent.rotation = Quaternion.Euler(0.0f, targetAngle, 0.0f);
         }
 
         private void RotateCarBody()
         {
             if(isGrounded)
             {
-                carNormal.up = Vector3.Lerp(carNormal.up, hitOn.normal, Time.fixedDeltaTime * BODY_ROTATE_SPEED);
-                carNormal.Rotate(0, carParent.transform.eulerAngles.y, 0);
+                normal.up = Vector3.Lerp(normal.up, hitOn.normal, Time.fixedDeltaTime * BODY_ROTATE_SPEED);
+                normal.Rotate(0, parent.transform.eulerAngles.y, 0);
             }
             else
-                carNormal.Rotate(cachedRotation.x, cachedRotation.y, cachedRotation.z);
+                normal.Rotate(cachedRotation.x, cachedRotation.y, cachedRotation.z);
         }
 
         #endregion

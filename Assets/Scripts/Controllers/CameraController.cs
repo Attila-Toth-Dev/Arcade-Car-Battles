@@ -2,24 +2,35 @@ using UnityEngine;
 
 using FishNet.Object;
 
-using Inspector;
-
 namespace Controllers
 {
     public class CameraController : NetworkBehaviour
     {
+        #region Getters & Setters
+        
+        public Vector3 Forward
+        {
+            get => forward;
+        }
+
+        public Vector3 Right
+        {
+            get => right;
+        } 
+
+        #endregion
+
         [Header("References")]
-        [SerializeField] private Camera playerCamera;
-        [SerializeField] private AudioListener listener;
         [SerializeField] private Transform target;
 
         [Header("Properties")]
         [SerializeField] private float cameraHeight = 6.0f;
         [SerializeField] private float cameraDistance = 6.0f;
 
-        [Header("Debugging")]
-        [SerializeField, ReadOnly] private Vector3 cameraForward;
-        [SerializeField, ReadOnly] private Vector3 cameraRight;
+        private new Camera camera;
+        
+        private Vector3 forward;
+        private Vector3 right;
 
         public override void OnStartClient()
         {
@@ -27,15 +38,17 @@ namespace Controllers
 
             if(!base.IsOwner)
             {
-                listener.gameObject.SetActive(false);
                 gameObject.SetActive(false);
                 return;
             }
 
+            if (camera == null)
+                camera = GetComponent<Camera>();
+
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
 
-            playerCamera.transform.LookAt(target);
+            camera.transform.LookAt(target);
         }
 
         public override void OnStopClient()
@@ -60,10 +73,18 @@ namespace Controllers
                 return;
             }
 
+            forward = camera.transform.forward;
+            forward.y = 0.0f;
+            forward.Normalize();
+
+            right = camera.transform.right;
+            right.y = 0.0f;
+            right.Normalize();
+
             Vector3 camPos = new Vector3(target.position.x - cameraDistance, target.position.y + cameraHeight, target.position.z - cameraDistance);
 
-            playerCamera.transform.position = camPos;
-            playerCamera.transform.LookAt(target);
+            camera.transform.position = camPos;
+            camera.transform.LookAt(target);
         }
     }
 }
