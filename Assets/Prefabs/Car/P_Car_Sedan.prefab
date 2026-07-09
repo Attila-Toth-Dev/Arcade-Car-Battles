@@ -532,7 +532,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 2303521890887374736}
   currentWeapon: {fileID: 2393850155860798891, guid: 211a09ebd025fdb4193b81072124fa14, type: 3}
   weaponAttachPoint: {fileID: 2175095599663053255}
-  camera: {fileID: 7872681360481164795}
+  playerCamera: {fileID: 7872681360481164795}
   rotationSensitivity: 2.5
   rotationSensCurve:
     serializedVersion: 2

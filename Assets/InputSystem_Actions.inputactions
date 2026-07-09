@@ -157,6 +157,17 @@
                     "action": "Weapon",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4e47bca2-b5a7-4b2c-8b5d-dc20b6caef0b",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

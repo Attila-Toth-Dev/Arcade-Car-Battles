@@ -27,9 +27,6 @@ namespace Controllers
         [Header("Debugging - Input")]
         [SerializeField, ReadOnly] private Vector2 weaponInput;
         [SerializeField, ReadOnly] private float magnitude;
-        [SerializeField, ReadOnly] private bool isKeyboard;
-        [SerializeField, ReadOnly] private bool isGamepad;
-        [SerializeField, ReadOnly] private bool isMouse;
 
         [Header("Debugging - Rotation")]
         [SerializeField, ReadOnly] private Vector3 rotationDirection;
@@ -111,25 +108,6 @@ namespace Controllers
             {
                 InputDevice device = control.device;
                 Debug.Log(device.displayName);
-
-                if (device is Mouse mouse)
-                {
-                    isKeyboard = false;
-                    isGamepad = false;
-                    isMouse = true;
-                }
-                else if (device is Gamepad gamepad)
-                {
-                    isKeyboard = false;
-                    isGamepad = true;
-                    isMouse = false;
-                }
-                else if (device is Keyboard keyboard)
-                {
-                    isKeyboard = true;
-                    isGamepad = false;
-                    isMouse = false;
-                }
             }
 
             magnitude = weaponInput.magnitude;
@@ -151,18 +129,8 @@ namespace Controllers
 
             rotationDirection = (playerCamera.Forward * weaponInput.y) + (playerCamera.Right * weaponInput.x);
             
-            if(isKeyboard || isGamepad)
-            {
-                stickAngle = Mathf.Atan2(rotationDirection.x, rotationDirection.z) * Mathf.Rad2Deg;
-
-                targetAngle = Mathf.SmoothDampAngle(weaponAttachPoint.eulerAngles.y, stickAngle, ref turnVelocity, Time.fixedDeltaTime * setRotation);
-            }
-            else if(isMouse)
-            {
-                Ray ray = playerCamera.Camera.ScreenPointToRay(weaponInput);
-                
-                //targetAngle = Mathf.SmoothDampAngle(weaponAttachPoint.eulerAngles.y, stickAngle)
-            }
+            stickAngle = Mathf.Atan2(rotationDirection.x, rotationDirection.z) * Mathf.Rad2Deg;
+            targetAngle = Mathf.SmoothDampAngle(weaponAttachPoint.eulerAngles.y, stickAngle, ref turnVelocity, Time.fixedDeltaTime * setRotation);
 
             weaponAttachPoint.rotation = Quaternion.Euler(0.0f, targetAngle, 0.0f);
         }
