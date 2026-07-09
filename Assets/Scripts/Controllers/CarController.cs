@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 using FishNet.Object;
 
 using Inspector;
-using System;
 
 namespace Controllers
 {
@@ -40,7 +39,6 @@ namespace Controllers
         [SerializeField] private float colliderOffset = 0.5f;
         [SerializeField] private float rayDistance = 1.1f;
         [SerializeField] private LayerMask layerMask;
-        [SerializeField, ReadOnly] private bool isGrounded;
 
         [Header("Input References")]
         [SerializeField] private InputActionReference moveActionRef;
@@ -59,6 +57,10 @@ namespace Controllers
         [SerializeField, ReadOnly] private float targetAngle;
         [SerializeField, ReadOnly] private float turnVelocity;
         [SerializeField, ReadOnly] private float setSteer;
+
+        [Header("Debugging - Physics")]
+        [SerializeField, ReadOnly] private bool isGrounded;
+        [SerializeField, ReadOnly] private float rbLinearVelocity;
 
         private Quaternion cachedRotation;
 
@@ -103,6 +105,8 @@ namespace Controllers
         {
             if (!base.IsOwner)
                 return;
+
+            rbLinearVelocity = rigidBody.linearVelocity.magnitude;
 
             GroundCheck();
 

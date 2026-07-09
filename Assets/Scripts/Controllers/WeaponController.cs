@@ -15,10 +15,10 @@ namespace Controllers
         [Header("References")]
         [SerializeField] private BaseWeapon currentWeapon;
         [SerializeField] private Transform weaponAttachPoint;
-        [SerializeField] private new CameraController camera;
+        [SerializeField] private CameraController playerCamera;
 
         [Header("Weapon Properties")]
-        [SerializeField] private float maxRotation;
+        [SerializeField] private float rotationSensitivity;
         [SerializeField] private AnimationCurve rotationSensCurve;
  
         [Header("Input References")]
@@ -27,6 +27,9 @@ namespace Controllers
         [Header("Debugging - Input")]
         [SerializeField, ReadOnly] private Vector2 weaponInput;
         [SerializeField, ReadOnly] private float magnitude;
+        [SerializeField, ReadOnly] private bool isKeyboard;
+        [SerializeField, ReadOnly] private bool isGamepad;
+        [SerializeField, ReadOnly] private bool isMouse;
 
         [Header("Debugging - Rotation")]
         [SerializeField, ReadOnly] private Vector3 rotationDirection;
@@ -73,6 +76,9 @@ namespace Controllers
                 return;
 
             RotateWeapon();
+
+            if (currentWeapon != null)
+                currentWeapon.Fire();
         }
 
         #region RPC Functions
@@ -98,12 +104,40 @@ namespace Controllers
         {
             weaponInput = weaponActionRef.action.ReadValue<Vector2>();
 
+            InputAction action = weaponActionRef.action;
+            InputControl control = action.activeControl;
+
+            if(control != null)
+            {
+                InputDevice device = control.device;
+                Debug.Log(device.displayName);
+
+                if (device is Mouse mouse)
+                {
+                    isKeyboard = false;
+                    isGamepad = false;
+                    isMouse = true;
+                }
+                else if (device is Gamepad gamepad)
+                {
+                    isKeyboard = false;
+                    isGamepad = true;
+                    isMouse = false;
+                }
+                else if (device is Keyboard keyboard)
+                {
+                    isKeyboard = true;
+                    isGamepad = false;
+                    isMouse = false;
+                }
+            }
+
             magnitude = weaponInput.magnitude;
         }
 
         private void CalculateRotation()
         {
-            setRotation = rotationSensCurve.Evaluate(weaponInput.magnitude) * maxRotation;
+            setRotation = rotationSensCurve.Evaluate(weaponInput.magnitude) * rotationSensitivity;
         }
 
         #endregion
@@ -115,10 +149,20 @@ namespace Controllers
             if (weaponInput.magnitude == 0)
                 return;
 
-            rotationDirection = (camera.Forward * weaponInput.y) + (camera.Right * weaponInput.x);
-            stickAngle = Mathf.Atan2(rotationDirection.x, rotationDirection.z) * Mathf.Rad2Deg;
+            rotationDirection = (playerCamera.Forward * weaponInput.y) + (playerCamera.Right * weaponInput.x);
+            
+            if(isKeyboard || isGamepad)
+            {
+                stickAngle = Mathf.Atan2(rotationDirection.x, rotationDirection.z) * Mathf.Rad2Deg;
 
-            targetAngle = Mathf.SmoothDampAngle(weaponAttachPoint.eulerAngles.y, stickAngle, ref turnVelocity, Time.fixedDeltaTime * setRotation);
+                targetAngle = Mathf.SmoothDampAngle(weaponAttachPoint.eulerAngles.y, stickAngle, ref turnVelocity, Time.fixedDeltaTime * setRotation);
+            }
+            else if(isMouse)
+            {
+                Ray ray = playerCamera.Camera.ScreenPointToRay(weaponInput);
+                
+                //targetAngle = Mathf.SmoothDampAngle(weaponAttachPoint.eulerAngles.y, stickAngle)
+            }
 
             weaponAttachPoint.rotation = Quaternion.Euler(0.0f, targetAngle, 0.0f);
         }

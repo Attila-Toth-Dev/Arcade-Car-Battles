@@ -18,6 +18,11 @@ namespace Controllers
             get => right;
         }
 
+        public Camera Camera
+        {
+            get => camera;
+        }
+
         #endregion
 
         [Header("References")]
