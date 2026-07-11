@@ -89,10 +89,10 @@ namespace Controllers
 
         private void Update()
         {
+            parent.position = rigidBody.transform.position - new Vector3(0, colliderOffset, 0);
+
             if (!base.IsOwner)
                 return;
-
-            parent.position = rigidBody.transform.position - new Vector3(0, colliderOffset, 0);
 
             InputHandler();
 
