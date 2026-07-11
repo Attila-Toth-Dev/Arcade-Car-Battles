@@ -78,8 +78,6 @@ namespace Controllers
             
             moveActionRef.action.Enable();
 
-            parent.position = rigidBody.transform.position - new Vector3(0, colliderOffset, 0);
-            
             cachedRotation = new Quaternion(normal.rotation.x, normal.rotation.y, normal.rotation.z, 0.0f);
         }
 
@@ -97,8 +95,6 @@ namespace Controllers
         {
             if (!base.IsOwner)
                 return;
-
-            //parent.position = rigidBody.transform.position - new Vector3(0, colliderOffset, 0);
 
             InputHandler();
 
@@ -121,8 +117,14 @@ namespace Controllers
             RotateCar(moveInput);
             
             RotateCarBody();
+        }
 
-            //ServerRpc_SendClientInput(moveInput);
+        private void LateUpdate()
+        {
+            if (!base.IsOwner)
+                return;
+
+            parent.position = rigidBody.transform.position - new Vector3(0, colliderOffset, 0);
         }
 
         #region RPC Functions
