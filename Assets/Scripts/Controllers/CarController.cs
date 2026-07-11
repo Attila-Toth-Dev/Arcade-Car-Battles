@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 using FishNet.Object;
 
 using Inspector;
-using FishNet.Object.Synchronizing;
 
 namespace Controllers
 {
@@ -21,8 +20,6 @@ namespace Controllers
 
         // -- BODY ROTATION CONSTANTS -- //
         private const float BODY_ROTATE_SPEED = 5.0f;
-
-        private readonly SyncVar<float> syncedTargetAngle = new SyncVar<float>();
 
         [Header("References")]
         [SerializeField] private Transform model;
@@ -111,8 +108,6 @@ namespace Controllers
 
             rbLinearVelocity = rigidBody.linearVelocity.magnitude;
 
-            targetAngle = syncedTargetAngle.Value;
-
             GroundCheck();
 
             MoveCar(moveInput);
@@ -177,9 +172,9 @@ namespace Controllers
             rotationDirection = (camera.Forward * _moveInput.y) + (camera.Right * _moveInput.x);
             stickAngle = Mathf.Atan2(rotationDirection.x, rotationDirection.z) * Mathf.Rad2Deg;
 
-            syncedTargetAngle.Value = Mathf.SmoothDampAngle(parent.eulerAngles.y, stickAngle, ref turnVelocity, Time.fixedDeltaTime * setSteer);
+            targetAngle = Mathf.SmoothDampAngle(parent.eulerAngles.y, stickAngle, ref turnVelocity, Time.fixedDeltaTime * setSteer);
 
-            parent.rotation = Quaternion.Euler(0.0f, syncedTargetAngle.Value, 0.0f);
+            parent.rotation = Quaternion.Euler(0.0f, targetAngle, 0.0f);
         }
 
         private void RotateCarBody()
