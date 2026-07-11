@@ -6,7 +6,6 @@ using FishNet.Connection;
 
 using Weapons;
 using Inspector;
-using System;
 
 namespace Controllers
 {
@@ -124,8 +123,11 @@ namespace Controllers
 
         private void RotateWeapon()
         {
-            if (weaponInput.magnitude == 0)
+            if (weaponInput.sqrMagnitude == 0)
+            {
+                turnVelocity = 0.0f;
                 return;
+            }
 
             rotationDirection = (playerCamera.Forward * weaponInput.y) + (playerCamera.Right * weaponInput.x);
             
