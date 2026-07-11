@@ -96,6 +96,8 @@ namespace Controllers
             if (!base.IsOwner)
                 return;
 
+            parent.position = rigidBody.transform.position - new Vector3(0, colliderOffset, 0);
+
             InputHandler();
 
             CalculateAcceleration();
@@ -117,14 +119,6 @@ namespace Controllers
             RotateCar(moveInput);
             
             RotateCarBody();
-        }
-
-        private void LateUpdate()
-        {
-            if (!base.IsOwner)
-                return;
-
-            parent.position = rigidBody.transform.position - new Vector3(0, colliderOffset, 0);
         }
 
         #region RPC Functions
@@ -185,7 +179,7 @@ namespace Controllers
 
             syncedTargetAngle.Value = Mathf.SmoothDampAngle(parent.eulerAngles.y, stickAngle, ref turnVelocity, Time.fixedDeltaTime * setSteer);
 
-            parent.rotation = Quaternion.Euler(0.0f, targetAngle, 0.0f);
+            parent.rotation = Quaternion.Euler(0.0f, syncedTargetAngle.Value, 0.0f);
         }
 
         private void RotateCarBody()
