@@ -167,7 +167,10 @@ namespace Controllers
         private void RotateCar(Vector2 _moveInput)
         {
             if (moveInput.magnitude == 0)
+            {
+                turnVelocity = 0.0f;
                 return;
+            }
 
             rotationDirection = (camera.Forward * _moveInput.y) + (camera.Right * _moveInput.x);
             stickAngle = Mathf.Atan2(rotationDirection.x, rotationDirection.z) * Mathf.Rad2Deg;
