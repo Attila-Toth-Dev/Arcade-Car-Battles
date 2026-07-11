@@ -61,7 +61,7 @@ namespace Controllers
         [Header("Debugging - Physics")]
         [SerializeField, ReadOnly] private bool isGrounded;
 
-        private Quaternion cachedRotation;
+        private Vector3 cachedRotation;
 
         private RaycastHit hitOn;
 
@@ -74,7 +74,7 @@ namespace Controllers
             
             moveActionRef.action.Enable();
 
-            cachedRotation = new Quaternion(normal.rotation.x, normal.rotation.y, normal.rotation.z, 0.0f);
+            cachedRotation = new Vector3(normal.rotation.x, normal.rotation.y, normal.rotation.z);
         }
 
         public override void OnStopClient()
@@ -112,19 +112,6 @@ namespace Controllers
             
             RotateCarBody();
         }
-
-        #region RPC Functions
-
-        [ServerRpc(RequireOwnership = false)]
-        private void ServerRpc_SendClientInput(Vector2 _moveInput)
-        {
-            MoveCar(_moveInput);
-            RotateCar(_moveInput);
-        
-            RotateCarBody();
-        }
-
-        #endregion
 
         #region Update Functions
 
@@ -188,7 +175,7 @@ namespace Controllers
                 normal.Rotate(0, parent.transform.eulerAngles.y, 0);
             }
             else
-                normal.Rotate(cachedRotation.x, cachedRotation.y, cachedRotation.z);
+                normal.eulerAngles = cachedRotation;
         }
 
         #endregion
