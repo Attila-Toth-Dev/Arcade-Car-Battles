@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using FishNet.Object;
 
 using Inspector;
+using FishNet.Object.Synchronizing;
 
 namespace Controllers
 {
@@ -20,6 +21,8 @@ namespace Controllers
 
         // -- BODY ROTATION CONSTANTS -- //
         private const float BODY_ROTATE_SPEED = 5.0f;
+
+        private readonly SyncVar<float> syncedTargetAngle = new SyncVar<float>();
 
         [Header("References")]
         [SerializeField] private Transform model;
@@ -75,6 +78,8 @@ namespace Controllers
             
             moveActionRef.action.Enable();
 
+            parent.position = rigidBody.transform.position - new Vector3(0, colliderOffset, 0);
+            
             cachedRotation = new Quaternion(normal.rotation.x, normal.rotation.y, normal.rotation.z, 0.0f);
         }
 
@@ -93,7 +98,7 @@ namespace Controllers
             if (!base.IsOwner)
                 return;
 
-            parent.position = rigidBody.transform.position - new Vector3(0, colliderOffset, 0);
+            //parent.position = rigidBody.transform.position - new Vector3(0, colliderOffset, 0);
 
             InputHandler();
 
@@ -107,6 +112,8 @@ namespace Controllers
                 return;
 
             rbLinearVelocity = rigidBody.linearVelocity.magnitude;
+
+            targetAngle = syncedTargetAngle.Value;
 
             GroundCheck();
 
@@ -174,7 +181,7 @@ namespace Controllers
             rotationDirection = (camera.Forward * _moveInput.y) + (camera.Right * _moveInput.x);
             stickAngle = Mathf.Atan2(rotationDirection.x, rotationDirection.z) * Mathf.Rad2Deg;
 
-            targetAngle = Mathf.SmoothDampAngle(parent.eulerAngles.y, stickAngle, ref turnVelocity, Time.fixedDeltaTime * setSteer);
+            syncedTargetAngle.Value = Mathf.SmoothDampAngle(parent.eulerAngles.y, stickAngle, ref turnVelocity, Time.fixedDeltaTime * setSteer);
 
             parent.rotation = Quaternion.Euler(0.0f, targetAngle, 0.0f);
         }
