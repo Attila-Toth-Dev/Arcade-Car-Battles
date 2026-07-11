@@ -60,7 +60,6 @@ namespace Controllers
 
         [Header("Debugging - Physics")]
         [SerializeField, ReadOnly] private bool isGrounded;
-        [SerializeField, ReadOnly] private float rbLinearVelocity;
 
         private Quaternion cachedRotation;
 
@@ -106,8 +105,6 @@ namespace Controllers
             if (!base.IsOwner)
                 return;
 
-            rbLinearVelocity = rigidBody.linearVelocity.magnitude;
-
             GroundCheck();
 
             MoveCar(moveInput);
@@ -146,6 +143,9 @@ namespace Controllers
 
         private void CalculateSteering()
         {
+            if (moveInput.magnitude == 0)
+                return;
+
             setSteer = steeringSensCurve.Evaluate(clampedSpeed) * maxSteerAngle;
         }
 
