@@ -712,7 +712,7 @@ MonoBehaviour:
   _componentConfiguration: 0
   _synchronizeParent: 0
   _packing:
-    Position: 1
+    Position: 0
     Rotation: 0
     Scale: 1
   _useScaledTime: 1
