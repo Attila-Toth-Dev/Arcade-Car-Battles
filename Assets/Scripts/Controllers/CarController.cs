@@ -153,7 +153,7 @@ namespace Controllers
 
         private void RotateCar(Vector2 _moveInput)
         {
-            if (moveInput.magnitude == 0)
+            if (moveInput.sqrMagnitude == 0)
             {
                 turnVelocity = 0.0f;
                 return;

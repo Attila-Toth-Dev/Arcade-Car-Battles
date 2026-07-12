@@ -6,6 +6,7 @@ using FishNet.Connection;
 
 using Weapons;
 using Inspector;
+using System.Collections;
 
 namespace Controllers
 {
@@ -88,8 +89,17 @@ namespace Controllers
             if (weaponAttachPoint.TryGetComponent(out NetworkBehaviour attachNob))
                 nob.SetParent(attachNob);
 
+            StartCoroutine(SetParentDelay(nob));
+
             nob.transform.localPosition = Vector3.zero;
             nob.transform.localRotation = Quaternion.identity;
+        }
+
+        private IEnumerator SetParentDelay(NetworkObject _nob)
+        {
+            yield return null;
+
+            Debug.Log(_nob.transform.parent);
         }
 
         #endregion
@@ -114,6 +124,9 @@ namespace Controllers
 
         private void CalculateRotation()
         {
+            if (weaponInput.sqrMagnitude == 0)
+                return;
+
             setRotation = rotationSensCurve.Evaluate(weaponInput.magnitude) * rotationSensitivity;
         }
 
