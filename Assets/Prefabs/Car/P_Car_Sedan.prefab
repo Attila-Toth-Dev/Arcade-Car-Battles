@@ -710,7 +710,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 2303521890887374736}
   _networkObjectCache: {fileID: 0}
   _componentConfiguration: 0
-  _synchronizeParent: 0
+  _synchronizeParent: 1
   _packing:
     Position: 0
     Rotation: 0
@@ -720,10 +720,10 @@ MonoBehaviour:
   _extrapolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  _clientAuthoritative: 1
+  _clientAuthoritative: 0
   _sendToOwner: 1
   _interval: 1
-  _synchronizePosition: 0
+  _synchronizePosition: 1
   _positionSensitivity: 0.001
   _positionSnapping:
     X: 0
