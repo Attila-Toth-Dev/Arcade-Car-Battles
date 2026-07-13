@@ -1,3 +1,5 @@
+using System.Collections;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,7 +8,6 @@ using FishNet.Connection;
 
 using Weapons;
 using Inspector;
-using System.Collections;
 
 namespace Controllers
 {
@@ -72,7 +73,7 @@ namespace Controllers
             if (!base.IsOwner)
                 return;
 
-            RotateWeapon();
+            RotateWeapon(weaponInput);
 
             if (currentWeapon != null)
                 currentWeapon.Fire();
@@ -127,14 +128,14 @@ namespace Controllers
             if (weaponInput.sqrMagnitude == 0)
                 return;
 
-            setRotation = rotationSensCurve.Evaluate(weaponInput.magnitude) * rotationSensitivity;
+            setRotation = rotationSensCurve.Evaluate(weaponInput.sqrMagnitude) * rotationSensitivity;
         }
 
         #endregion
 
         #region Fixed Update Functions
 
-        private void RotateWeapon()
+        private void RotateWeapon(Vector2 _weaponInput)
         {
             if (weaponInput.sqrMagnitude == 0)
             {

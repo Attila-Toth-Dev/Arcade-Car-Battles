@@ -32,7 +32,7 @@ namespace Controllers
         [Header("Car Properties")]
         [SerializeField] private float maxSpeed;
         [SerializeField] private float acceleration;
-        [SerializeField] private float maxSteerAngle;
+        [SerializeField] private float steeringSensitivity;
         [SerializeField] private AnimationCurve steeringSensCurve;
 
         [Header("Physics Properties")]
@@ -133,7 +133,7 @@ namespace Controllers
             if (moveInput.magnitude == 0)
                 return;
 
-            setSteer = steeringSensCurve.Evaluate(clampedSpeed) * maxSteerAngle;
+            setSteer = steeringSensCurve.Evaluate(clampedSpeed) * steeringSensitivity;
         }
 
         #endregion
@@ -160,8 +160,8 @@ namespace Controllers
             }
 
             rotationDirection = (camera.Forward * _moveInput.y) + (camera.Right * _moveInput.x);
-            stickAngle = Mathf.Atan2(rotationDirection.x, rotationDirection.z) * Mathf.Rad2Deg;
 
+            stickAngle = Mathf.Atan2(rotationDirection.x, rotationDirection.z) * Mathf.Rad2Deg;
             targetAngle = Mathf.SmoothDampAngle(parent.eulerAngles.y, stickAngle, ref turnVelocity, Time.fixedDeltaTime * setSteer);
 
             parent.rotation = Quaternion.Euler(0.0f, targetAngle, 0.0f);
