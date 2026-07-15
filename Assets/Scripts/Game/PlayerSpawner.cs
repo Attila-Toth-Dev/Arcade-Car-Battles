@@ -8,15 +8,21 @@ using FishNet.Object;
 using FishNet.Managing;
 using FishNet.Connection;
 
+using Inspector;
+
 namespace Game
 {
     public class PlayerSpawner : MonoBehaviour
     {
-        [Header("Spawner Settings")]
+        [Header("References")]
         [SerializeField] private NetworkObject playerPrefab;
+        [SerializeField] private Transform[] spawnPoints;
+
+        [Header("Settings")]
         [SerializeField] private int requiredPlayerCount;
 
-        private NetworkManager networkManager;
+        [Header("Debugging")]
+        [SerializeField, ReadOnly]private NetworkManager networkManager;
 
         private void Awake()
         {
@@ -53,7 +59,9 @@ namespace Game
 
             foreach(NetworkConnection client in authenticatedClients)
             {
-                NetworkObject obj = Instantiate(playerPrefab);
+                Transform spawnPosition = spawnPoints[client.ClientId % spawnPoints.Length];
+
+                NetworkObject obj = Instantiate(playerPrefab, spawnPosition);
                 networkManager.ServerManager.Spawn(obj, client);
 
                 if (!client.Scenes.Contains(gameObject.scene))

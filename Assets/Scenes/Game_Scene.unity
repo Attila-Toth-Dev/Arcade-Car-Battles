@@ -3262,6 +3262,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3069490183552745313, guid: b5241a80d835c0b419b00d9dc96282ca, type: 3}
+      propertyPath: spawnPoints.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3069490183552745313, guid: b5241a80d835c0b419b00d9dc96282ca, type: 3}
+      propertyPath: 'spawnPoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 702385166}
+    - target: {fileID: 3069490183552745313, guid: b5241a80d835c0b419b00d9dc96282ca, type: 3}
+      propertyPath: 'spawnPoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 536182553}
+    - target: {fileID: 3069490183552745313, guid: b5241a80d835c0b419b00d9dc96282ca, type: 3}
+      propertyPath: 'spawnPoints.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1793339444}
+    - target: {fileID: 3069490183552745313, guid: b5241a80d835c0b419b00d9dc96282ca, type: 3}
+      propertyPath: 'spawnPoints.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1460487508}
     - target: {fileID: 4556407944428599588, guid: b5241a80d835c0b419b00d9dc96282ca, type: 3}
       propertyPath: m_Name
       value: P_Player_Spawner
