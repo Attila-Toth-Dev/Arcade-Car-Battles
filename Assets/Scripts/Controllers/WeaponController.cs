@@ -90,17 +90,15 @@ namespace Controllers
             if (weaponAttachPoint.TryGetComponent(out NetworkBehaviour attachNob))
                 nob.SetParent(attachNob);
 
-            StartCoroutine(SetParentDelay(nob, _conn.ClientId));
+            StartCoroutine(CR_WeaponParentingDelay(nob, _conn.ClientId));
 
             nob.transform.localPosition = Vector3.zero;
             nob.transform.localRotation = Quaternion.identity;
         }
 
-        private IEnumerator SetParentDelay(NetworkObject _nob, int _clientId)
+        private IEnumerator CR_WeaponParentingDelay(NetworkObject _nob, int _clientId)
         {
             yield return null;
-
-            Debug.Log($"{_nob.transform.parent}, Client ID: {_clientId}");
         }
 
         #endregion
