@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 
 using Weapons;
 
@@ -15,33 +16,38 @@ namespace Spawners
         {
             base.OnStartServer();
 
-            ServerRpc_SpawnObject();
-        }
-
-        public override void ServerRpc_SpawnObject()
-        {
-            NetworkObject nob = Instantiate(weaponToSpawn);
-            ServerManager.Spawn(nob);
-
-            if(SpawnTransform.TryGetComponent(out NetworkBehaviour spawn))
-                nob.SetParent(spawn);
-
-            nob.transform.localPosition = Vector3.zero;
-            nob.transform.localRotation = Quaternion.identity;
+            ServerRpc_SpawnWeapon(weaponToSpawn);
         }
 
         private void Update()
         {
+            SpawnTimer.Update();
+
+            CurrentSpawnTime = SpawnTimer.Remaining;
+
             RotateSpawnedObject();
         }
 
         private void OnTriggerEnter(Collider _other)
         {
+            NetworkObject obj = SpawnTransform.GetComponent<NetworkObject>();
+            ServerManager.Despawn(obj);
+
             //if(_other.GetComponentInParent<WeaponController>())
             //{
             //    WeaponController controller = _other.GetComponentInParent<WeaponController>();
             //    controller.ServerRpc_SpawnWeapon(controller.LocalConnection, weaponToSpawn);
             //}
+
+            SpawnTimer.StartTimer(Cooldown);
+
+            SpawnTimer.OnChange += OnTimerChange;
+        }
+
+        private void OnTimerChange(SyncTimerOperation _operation, float _prev, float _next, bool _asServer)
+        {
+            if (_operation == SyncTimerOperation.Finished || _operation == SyncTimerOperation.Complete)
+                ServerRpc_SpawnWeapon(weaponToSpawn);
         }
     }
 }
