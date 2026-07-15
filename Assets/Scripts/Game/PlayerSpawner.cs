@@ -61,7 +61,7 @@ namespace Game
             {
                 Transform spawnPosition = spawnPoints[client.ClientId % spawnPoints.Length];
 
-                NetworkObject obj = Instantiate(playerPrefab, spawnPosition);
+                NetworkObject obj = networkManager.GetPooledInstantiated(playerPrefab, spawnPosition.position, spawnPosition.rotation, _asServer);
                 networkManager.ServerManager.Spawn(obj, client);
 
                 if (!client.Scenes.Contains(gameObject.scene))
