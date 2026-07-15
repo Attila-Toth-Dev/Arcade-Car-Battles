@@ -31,19 +31,14 @@ namespace Spawners
 
         private void OnTriggerEnter(Collider _other)
         {
-            NetworkObject weapon = SpawnTransform.GetComponentInChildren<NetworkObject>();
-            
+            if (CurrentSpawnTime > 0)
+                return;
+
+            NetworkObject weapon = SpawnTransform.GetComponentInChildren<NetworkObject>();            
             ServerManager.Despawn(weapon, DespawnType.Destroy);
 
-            //if(_other.GetComponentInParent<WeaponController>())
-            //{
-            //    WeaponController controller = _other.GetComponentInParent<WeaponController>();
-            //    controller.ServerRpc_SpawnWeapon(controller.LocalConnection, weaponToSpawn);
-            //}
-
-            //SpawnTimer.StartTimer(Cooldown);
-            //
-            //SpawnTimer.OnChange += OnTimerChange;
+            SpawnTimer.StartTimer(Cooldown);
+            SpawnTimer.OnChange += OnTimerChange;
         }
 
         private void OnTimerChange(SyncTimerOperation _operation, float _prev, float _next, bool _asServer)
