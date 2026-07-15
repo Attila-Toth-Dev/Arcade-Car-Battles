@@ -520,7 +520,7 @@ MonoBehaviour:
   camera: {fileID: 7872681360481164795}
   maxSpeed: 50
   acceleration: 15
-  maxSteerAngle: 10
+  steeringSensitivity: 10
   steeringSensCurve:
     serializedVersion: 2
     m_Curve:
