@@ -12,7 +12,7 @@ namespace Spawners
         [Header("Weapon References")]
         [SerializeField] private BaseWeapon weaponToSpawn;
 
-        public override void OnStartClient()
+        public override void OnStartServer()
         {
             base.OnStartServer();
 
@@ -31,8 +31,8 @@ namespace Spawners
         private void OnTriggerEnter(Collider _other)
         {
             NetworkObject weapon = SpawnTransform.GetComponentInChildren<NetworkObject>();
-            Debug.Log($"{weapon.name}, {weapon.transform.parent}");
-            //ServerManager.Despawn(, DespawnType.Destroy);
+            
+            ServerManager.Despawn(weapon, DespawnType.Destroy);
 
             //if(_other.GetComponentInParent<WeaponController>())
             //{
