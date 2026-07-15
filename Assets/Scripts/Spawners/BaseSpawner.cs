@@ -19,7 +19,7 @@ namespace Spawners
         [Header("Debugging")]
         [SerializeField, ReadOnly] protected float currentSpawnTime;
 
-        [ServerRpc(RequireOwnership = false)]
+        [ServerRpc(RequireOwnership = true, RunLocally = false)]
         public virtual void ServerRpc_SpawnObject(NetworkConnection _conn) { }
 
         public virtual void RotateSpawnedObject() { }
