@@ -1,7 +1,9 @@
-using FishNet.Connection;
 using UnityEngine;
 
+using FishNet.Object;
+
 using Weapons;
+using Controllers;
 
 namespace Spawners
 {
@@ -14,17 +16,33 @@ namespace Spawners
         {
             base.OnStartServer();
 
-            ServerRpc_SpawnObject(LocalConnection);
+            ServerRpc_SpawnObject();
         }
 
-        public override void ServerRpc_SpawnObject(NetworkConnection _conn)
+        public override void ServerRpc_SpawnObject()
         {
-            Debug.Log($"Connection {_conn.ClientId} is spawning an object.");
+            NetworkObject nob = Instantiate(weaponToSpawn);
+            ServerManager.Spawn(nob);
+
+            if(SpawnTransform.TryGetComponent(out NetworkBehaviour spawn))
+                nob.SetParent(spawn);
+
+            nob.transform.localPosition = Vector3.zero;
+            nob.transform.localRotation = Quaternion.identity;
         }
 
         private void Update()
         {
             RotateSpawnedObject();
+        }
+
+        private void OnTriggerEnter(Collider _other)
+        {
+            if(_other.GetComponentInParent<WeaponController>())
+            {
+                WeaponController controller = _other.GetComponentInParent<WeaponController>();
+                controller.ServerRpc_SpawnWeapon(controller.LocalConnection, weaponToSpawn);
+            }
         }
     }
 }

@@ -14,7 +14,6 @@ namespace Controllers
     public class WeaponController : NetworkBehaviour
     {
         [Header("References")]
-        [SerializeField] private BaseWeapon currentWeapon;
         [SerializeField] private Transform weaponAttachPoint;
         [SerializeField] private CameraController playerCamera;
 
@@ -24,6 +23,9 @@ namespace Controllers
  
         [Header("Input References")]
         [SerializeField] private InputActionReference weaponActionRef;
+
+        [Header("Debugging - Weapon")]
+        [SerializeField, ReadOnly] private BaseWeapon currentWeapon;
 
         [Header("Debugging - Input")]
         [SerializeField, ReadOnly] private Vector2 weaponInput;
@@ -44,8 +46,6 @@ namespace Controllers
                 return;
 
             weaponActionRef.action.Enable();
-
-            ServerRpc_SpawnWeapon(LocalConnection);
         }
 
         public override void OnStopClient()
@@ -82,23 +82,15 @@ namespace Controllers
         #region RPC Functions
 
         [ServerRpc(RequireOwnership = false)]
-        private void ServerRpc_SpawnWeapon(NetworkConnection _conn)
+        public void ServerRpc_SpawnWeapon(NetworkConnection _conn, BaseWeapon _weaponToSpawn)
         {
+            currentWeapon = _weaponToSpawn;
+
             NetworkObject nob = Instantiate(currentWeapon);
             ServerManager.Spawn(nob, _conn);
 
-            if (weaponAttachPoint.TryGetComponent(out NetworkBehaviour attachNob))
-                nob.SetParent(attachNob);
-
-            StartCoroutine(CR_WeaponParentingDelay(nob, _conn.ClientId));
-
-            nob.transform.localPosition = Vector3.zero;
-            nob.transform.localRotation = Quaternion.identity;
-        }
-
-        private IEnumerator CR_WeaponParentingDelay(NetworkObject _nob, int _clientId)
-        {
-            yield return null;
+            if (nob.TryGetComponent(out BaseWeapon weapon))
+                weapon.ObserversRpc_SetWeaponParent(nob, weaponAttachPoint);
         }
 
         #endregion
@@ -108,15 +100,6 @@ namespace Controllers
         private void InputHandler()
         {
             weaponInput = weaponActionRef.action.ReadValue<Vector2>();
-
-            InputAction action = weaponActionRef.action;
-            InputControl control = action.activeControl;
-
-            if(control != null)
-            {
-                InputDevice device = control.device;
-                Debug.Log(device.displayName);
-            }
 
             magnitude = weaponInput.magnitude;
         }
