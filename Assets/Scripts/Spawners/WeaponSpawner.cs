@@ -40,9 +40,9 @@ namespace Spawners
             //    controller.ServerRpc_SpawnWeapon(controller.LocalConnection, weaponToSpawn);
             //}
 
-            SpawnTimer.StartTimer(Cooldown);
-
-            SpawnTimer.OnChange += OnTimerChange;
+            //SpawnTimer.StartTimer(Cooldown);
+            //
+            //SpawnTimer.OnChange += OnTimerChange;
         }
 
         private void OnTimerChange(SyncTimerOperation _operation, float _prev, float _next, bool _asServer)
