@@ -1,5 +1,3 @@
-using System.Collections;
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,8 +11,17 @@ namespace Controllers
 {
     public class WeaponController : NetworkBehaviour
     {
+        #region Properties
+        
+        public BaseWeapon CurrentWeapon
+        {
+            get => currentWeapon;
+        } 
+
+        #endregion
+
         [Header("References")]
-        [SerializeField] private Transform weaponAttachPoint;
+        [SerializeField] private NetworkObject weaponAttachPoint;
         [SerializeField] private CameraController playerCamera;
 
         [Header("Weapon Properties")]
@@ -127,9 +134,9 @@ namespace Controllers
             rotationDirection = (playerCamera.Forward * weaponInput.y) + (playerCamera.Right * weaponInput.x);
             
             stickAngle = Mathf.Atan2(rotationDirection.x, rotationDirection.z) * Mathf.Rad2Deg;
-            targetAngle = Mathf.SmoothDampAngle(weaponAttachPoint.eulerAngles.y, stickAngle, ref turnVelocity, Time.fixedDeltaTime * setRotation);
+            targetAngle = Mathf.SmoothDampAngle(weaponAttachPoint.transform.eulerAngles.y, stickAngle, ref turnVelocity, Time.fixedDeltaTime * setRotation);
 
-            weaponAttachPoint.rotation = Quaternion.Euler(0.0f, targetAngle, 0.0f);
+            weaponAttachPoint.transform.rotation = Quaternion.Euler(0.0f, targetAngle, 0.0f);
         }
 
         #endregion

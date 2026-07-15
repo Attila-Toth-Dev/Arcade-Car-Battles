@@ -26,9 +26,16 @@ namespace Weapons
 
         public abstract void Reload();
 
-        [ObserversRpc(ExcludeServer = false)]
-        public virtual void ObserversRpc_SetWeaponParent(NetworkObject _obj, Transform _parent)
+        public virtual T GetCurrentWeaponType<T>(T _weaponType)
         {
+            return _weaponType;
+        }
+
+        [ObserversRpc(ExcludeServer = false)]
+        public virtual void ObserversRpc_SetWeaponParent(NetworkObject _obj, NetworkObject _parent)
+        {
+            Debug.Log($"{_obj.name}, {_parent.name}");
+
             if (_parent.TryGetComponent(out NetworkBehaviour attachPoint))
                 _obj.SetParent(attachPoint);
 

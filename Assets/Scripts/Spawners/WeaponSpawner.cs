@@ -41,7 +41,11 @@ namespace Spawners
             if(_other.GetComponentInParent<WeaponController>())
             {
                 WeaponController controller = _other.GetComponentInParent<WeaponController>();
-                controller.ServerRpc_SpawnWeapon(controller.LocalConnection, weaponToSpawn);
+
+                //if (controller.CurrentWeapon != null || controller.CurrentWeapon == weaponToSpawn.GetCurrentWeaponType<BaseWeapon>(weaponToSpawn))
+                //    return;
+                //else
+                    controller.ServerRpc_SpawnWeapon(controller.LocalConnection, weaponToSpawn);
             }
         }
     }

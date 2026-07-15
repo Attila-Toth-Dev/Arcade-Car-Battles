@@ -20,7 +20,10 @@ namespace Spawners
         [SerializeField, ReadOnly] protected float CurrentSpawnTime;
 
         [ServerRpc(RequireOwnership = false, RunLocally = false)]
-        public virtual void ServerRpc_SpawnObject() { }
+        public virtual void ServerRpc_SpawnObject() 
+        { 
+        
+        }
 
         public virtual void RotateSpawnedObject() 
         {
