@@ -30,8 +30,8 @@ namespace Spawners
 
         private void OnTriggerEnter(Collider _other)
         {
-            NetworkObject obj = SpawnTransform.GetComponent<NetworkObject>();
-            ServerManager.Despawn(obj);
+            BaseWeapon weapon = _other.GetComponentInChildren<BaseWeapon>();
+            ServerManager.Despawn(weapon, DespawnType.Destroy);
 
             //if(_other.GetComponentInParent<WeaponController>())
             //{
