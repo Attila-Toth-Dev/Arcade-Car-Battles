@@ -12,11 +12,12 @@ namespace Spawners
         [Header("Weapon References")]
         [SerializeField] private BaseWeapon weaponToSpawn;
 
-        public override void OnStartServer()
+        public override void OnStartClient()
         {
             base.OnStartServer();
 
-            ServerRpc_SpawnWeapon(weaponToSpawn);
+            if(IsServerStarted)
+                ServerRpc_SpawnWeapon(weaponToSpawn);
         }
 
         private void Update()
