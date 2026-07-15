@@ -78,9 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
-  _componentIndexCache: 255
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 2303521890887374736}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 2303521890887374736}
   _componentConfiguration: 2
   _synchronizeParent: 0
   _packing:
@@ -205,9 +205,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
-  _componentIndexCache: 255
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 2303521890887374736}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 2303521890887374736}
   _componentConfiguration: 0
   _synchronizeParent: 0
   _packing:
@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7b1426c9f404df42b0b51dc48eaf1ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Car.CameraController
-  _componentIndexCache: 3
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 2303521890887374736}
   _networkObjectCache: {fileID: 2303521890887374736}
   camera: {fileID: 213117041334842499}
@@ -455,12 +455,13 @@ MonoBehaviour:
   NetworkBehaviours:
   - {fileID: 7585119977071486847}
   - {fileID: -8402952135297063246}
-  - {fileID: 0}
+  - {fileID: 5245762245966598445}
+  - {fileID: 2385528688872644572}
   - {fileID: 7872681360481164795}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1015255833880456622}
   InitializedParentNetworkBehaviour: {fileID: 0}
-  InitializedNestedNetworkObjects: []
+  InitializedNestedNetworkObjects:
+  - {fileID: 8257706802393583977}
   RuntimeParentNetworkBehaviour: {fileID: 0}
   RuntimeChildNetworkBehaviours: []
   _isNetworked: 1
@@ -469,7 +470,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _preventDespawnOnDisconnect: 0
   _defaultDespawnType: 0
-  _initializedTimestamp: -8584180895057841553
+  _initializedTimestamp: -8584174849790773721
   _localLevelOfDetailCalculationType: 0
   _useLevelOfDetail: 0
   _useRootLevelOfDetail: 1
@@ -624,9 +625,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bceedd0106b0a4c4184dcb78615706ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Physics.Gravity
-  _componentIndexCache: 255
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 2303521890887374736}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 2303521890887374736}
   rigidbody: {fileID: 9073975740902891230}
   gravityMultiplier: 1
 --- !u!1 &8025974037282059366
@@ -671,6 +672,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2175095599663053255}
   - component: {fileID: 8257706802393583977}
+  - component: {fileID: 1723759187165291533}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -705,14 +707,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.NetworkObject
-  <IsNested>k__BackingField: 0
+  <IsNested>k__BackingField: 1
   WasActiveDuringEdit: 1
   WasActiveDuringEdit_Set1: 1
-  <ComponentIndex>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 1
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
-  NetworkBehaviours: []
-  InitializedParentNetworkBehaviour: {fileID: 0}
+  NetworkBehaviours:
+  - {fileID: 1723759187165291533}
+  InitializedParentNetworkBehaviour: {fileID: 7585119977071486847}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
   RuntimeChildNetworkBehaviours: []
@@ -722,7 +725,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _preventDespawnOnDisconnect: 0
   _defaultDespawnType: 0
-  _initializedTimestamp: 0
+  _initializedTimestamp: -8584174849790773721
   _localLevelOfDetailCalculationType: 0
   _useLevelOfDetail: 0
   _useRootLevelOfDetail: 1
@@ -746,10 +749,25 @@ MonoBehaviour:
   <AssetPathHash>k__BackingField: 0
   SceneId: 0
   SerializedTransformProperties:
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Scale: {x: 0, y: 0, z: 0}
-    IsValid: 0
+    Position: {x: 0, y: 0.986, z: 0.819}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    Scale: {x: 1, y: 1, z: 1}
+    IsValid: 1
+--- !u!114 &1723759187165291533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8428269079282393338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 8257706802393583977}
+  _networkObjectCache: {fileID: 8257706802393583977}
 --- !u!1 &9009442155519577361
 GameObject:
   m_ObjectHideFlags: 0

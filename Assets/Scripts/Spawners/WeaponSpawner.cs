@@ -3,7 +3,6 @@ using UnityEngine;
 using FishNet.Object;
 
 using Weapons;
-using Controllers;
 
 namespace Spawners
 {
@@ -38,15 +37,11 @@ namespace Spawners
 
         private void OnTriggerEnter(Collider _other)
         {
-            if(_other.GetComponentInParent<WeaponController>())
-            {
-                WeaponController controller = _other.GetComponentInParent<WeaponController>();
-
-                //if (controller.CurrentWeapon != null || controller.CurrentWeapon == weaponToSpawn.GetCurrentWeaponType<BaseWeapon>(weaponToSpawn))
-                //    return;
-                //else
-                    controller.ServerRpc_SpawnWeapon(controller.LocalConnection, weaponToSpawn);
-            }
+            //if(_other.GetComponentInParent<WeaponController>())
+            //{
+            //    WeaponController controller = _other.GetComponentInParent<WeaponController>();
+            //    controller.ServerRpc_SpawnWeapon(controller.LocalConnection, weaponToSpawn);
+            //}
         }
     }
 }
