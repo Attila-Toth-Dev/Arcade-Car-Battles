@@ -1,6 +1,6 @@
-namespace Weapons.Types
+namespace Weapons
 {
-    public class PistolWeapon : BaseWeapon
+    public class SniperWeapon : BaseWeapon
     {
         public override void Fire()
         {
