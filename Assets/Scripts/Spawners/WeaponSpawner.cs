@@ -64,10 +64,7 @@ namespace Spawners
                 IsItemSpawned.Value = false;
 
             if (_operation == SyncTimerOperation.Finished)
-            {
-                IsItemSpawned.Value = true;
                 ServerRpc_SpawnWeapon(weaponToSpawn);
-            }
         } 
 
         #endregion

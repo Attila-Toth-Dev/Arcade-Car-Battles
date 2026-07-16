@@ -41,6 +41,8 @@ namespace Spawners
                 nob.transform.localRotation = Quaternion.identity;
                 nob.transform.localScale = Vector3.one * 2.5f;
             }
+
+            IsItemSpawned.Value = true;
         }
 
         [ServerRpc(RequireOwnership = false)]
