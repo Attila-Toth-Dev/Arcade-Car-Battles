@@ -49,7 +49,7 @@ namespace Spawners
                 Debug.Log($"Returning early as {this.GetType()} spawner has no child objects.");
                 return;
             }
-            else if(controller.CurrentWeapon.GetType().IsInstanceOfType(weaponToSpawn) && controller.CurrentWeapon != null)
+            else if(controller.CurrentWeapon != null && controller.CurrentWeapon.GetType() == weaponToSpawn.GetType())
             {
                 Debug.Log($"Returning early as car's current weapon is the same as weapon in spawner.");
                 return;
