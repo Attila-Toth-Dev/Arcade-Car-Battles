@@ -67,8 +67,8 @@ MonoBehaviour:
   _synchronizeParent: 0
   _packing:
     Position: 1
-    Rotation: 0
-    Scale: 1
+    Rotation: 2
+    Scale: 2
   _useScaledTime: 1
   _interpolation: 2
   _extrapolation: 2
@@ -88,7 +88,7 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
-  _synchronizeScale: 0
+  _synchronizeScale: 1
   _scaleSensitivity: 0.001
   _scaleSnapping:
     X: 0
@@ -161,7 +161,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _preventDespawnOnDisconnect: 0
   _defaultDespawnType: 1
-  _initializedTimestamp: -8584174283949541708
+  _initializedTimestamp: -8584174091098259823
   _localLevelOfDetailCalculationType: 0
   _useLevelOfDetail: 0
   _useRootLevelOfDetail: 1
@@ -207,7 +207,7 @@ MonoBehaviour:
   SpawnTransform: {fileID: 7201111514613670622}
   Cooldown: 5
   DebugSpawnTime: 0
-  DebugCanSpawn: 0
+  DebugIsItemSpawned: 0
   weaponToSpawn: {fileID: 0}
 --- !u!135 &6513730317782962620
 SphereCollider:
