@@ -57,8 +57,17 @@ namespace Spawners
 
         public virtual void OnTimerChange(SyncTimerOperation _operation, float _prev, float _next, bool _asServer)
         {
+            if (!_asServer)
+                return;
+
+            if (_operation == SyncTimerOperation.Start)
+                IsItemSpawned.Value = false;
+
             if (_operation == SyncTimerOperation.Finished)
+            {
+                IsItemSpawned.Value = true;
                 ServerRpc_SpawnWeapon(weaponToSpawn);
+            }
         } 
 
         #endregion

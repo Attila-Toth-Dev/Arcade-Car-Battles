@@ -41,16 +41,12 @@ namespace Spawners
                 nob.transform.localRotation = Quaternion.identity;
                 nob.transform.localScale = Vector3.one * 2.5f;
             }
-         
-            IsItemSpawned.Value = true;
         }
 
         [ServerRpc(RequireOwnership = false)]
         public virtual void ServerRpc_DespawnWeapon(NetworkObject _weapon)
         {
             ServerManager.Despawn(_weapon);
-
-            IsItemSpawned.Value = false;
         }
 
         [ServerRpc(RequireOwnership = false)]
