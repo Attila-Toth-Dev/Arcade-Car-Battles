@@ -57,6 +57,9 @@ namespace Spawners
 
             if (controller != null)
             {
+                if(controller.CurrentWeapon != null)
+                    ServerRpc_DespawnCurrentPlayerWeapon(controller);
+
                 NetworkObject nob = controller.GetComponent<NetworkObject>();
                 controller.ServerRpc_SpawnWeapon(nob.LocalConnection, weaponToSpawn);
             }
