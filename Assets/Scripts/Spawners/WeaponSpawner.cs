@@ -42,13 +42,20 @@ namespace Spawners
 
         private void OnTriggerEnter(Collider _other)
         {
+            WeaponController controller = _other.GetComponentInParent<WeaponController>();
+            
             if (!IsItemSpawned.Value)
             {
                 Debug.Log($"Returning early as {this.GetType()} spawner has no child objects.");
                 return;
             }
+            else if(controller.CurrentWeapon.GetType().IsInstanceOfType(weaponToSpawn) && controller.CurrentWeapon != null)
+            {
+                Debug.Log($"Returning early as car's current weapon is the same as weapon in spawner.");
+                return;
+            }
 
-            if(_other.TryGetComponent(out WeaponController controller))
+            if (controller != null)
             {
                 NetworkObject nob = controller.GetComponent<NetworkObject>();
                 controller.ServerRpc_SpawnWeapon(nob.LocalConnection, weaponToSpawn);
