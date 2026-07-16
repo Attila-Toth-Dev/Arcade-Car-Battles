@@ -48,6 +48,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4591759989330756356, guid: 54ffad38fd801ab48b2ed3f5fde20fa3, type: 3}
+      propertyPath: Cooldown
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591759989330756356, guid: 54ffad38fd801ab48b2ed3f5fde20fa3, type: 3}
+      propertyPath: weaponToSpawn
+      value: 
+      objectReference: {fileID: 7786660084227666941, guid: e67ffa1ae417d8d42b94b9b90815aa26, type: 3}
     - target: {fileID: 7439634386724857693, guid: 54ffad38fd801ab48b2ed3f5fde20fa3, type: 3}
       propertyPath: <AssetPathHash>k__BackingField
       value: 11367259176336029797
