@@ -50,7 +50,7 @@ namespace Spawners
             NetworkObject weapon = SpawnTransform.GetComponentInChildren<NetworkObject>();
             ServerRpc_DespawnWeapon(weapon);
 
-            SpawnTimer.StartTimer(Cooldown);
+            ServerRpc_StartTimer(Cooldown);
         }
 
         #region Timer Functions

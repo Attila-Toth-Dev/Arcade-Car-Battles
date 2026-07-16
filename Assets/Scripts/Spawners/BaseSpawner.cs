@@ -53,6 +53,12 @@ namespace Spawners
             IsItemSpawned.Value = false;
         }
 
+        [ServerRpc(RequireOwnership = false)]
+        public virtual void ServerRpc_StartTimer(float _cooldown)
+        {
+            SpawnTimer.StartTimer(_cooldown);
+        }
+
         #endregion
 
         #region Update Functions
