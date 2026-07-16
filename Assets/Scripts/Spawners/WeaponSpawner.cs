@@ -4,6 +4,7 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 
 using Weapons;
+using Controllers;
 
 namespace Spawners
 {
@@ -45,6 +46,12 @@ namespace Spawners
             {
                 Debug.Log($"Returning early as {this.GetType()} spawner has no child objects.");
                 return;
+            }
+
+            if(_other.TryGetComponent(out WeaponController controller))
+            {
+                NetworkObject nob = controller.GetComponent<NetworkObject>();
+                controller.ServerRpc_SpawnWeapon(nob.LocalConnection, weaponToSpawn);
             }
 
             NetworkObject weapon = SpawnTransform.GetComponentInChildren<NetworkObject>();

@@ -96,8 +96,14 @@ namespace Controllers
             NetworkObject nob = Instantiate(currentWeapon);
             ServerManager.Spawn(nob, _conn);
 
-            if (nob.TryGetComponent(out BaseWeapon weapon))
-                weapon.ObserversRpc_SetWeaponParent(nob, weaponAttachPoint);
+            //if (nob.TryGetComponent(out BaseWeapon weapon))
+            //    weapon.ObserversRpc_SetWeaponParent(nob, weaponAttachPoint);
+
+            if (weaponAttachPoint.TryGetComponent(out NetworkBehaviour attachPoint))
+                nob.SetParent(attachPoint);
+
+            nob.transform.localPosition = Vector3.zero;
+            nob.transform.localRotation = Quaternion.identity;
         }
 
         #endregion

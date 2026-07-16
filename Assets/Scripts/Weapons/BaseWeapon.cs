@@ -26,11 +26,8 @@ namespace Weapons
 
         public abstract void Reload();
 
-        public virtual T GetCurrentWeaponType<T>(T _weaponType)
-        {
-            return _weaponType;
-        }
-
+        #region RPC Functions
+        
         [ObserversRpc(ExcludeServer = false)]
         public virtual void ObserversRpc_SetWeaponParent(NetworkObject _obj, NetworkObject _parent)
         {
@@ -41,6 +38,8 @@ namespace Weapons
 
             _obj.transform.localPosition = Vector3.zero;
             _obj.transform.localRotation = Quaternion.identity;
-        }
+        } 
+
+        #endregion
     }
 }
