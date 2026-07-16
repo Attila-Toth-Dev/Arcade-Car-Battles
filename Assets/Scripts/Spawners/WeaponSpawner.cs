@@ -16,35 +16,48 @@ namespace Spawners
         {
             base.OnStartServer();
 
-            if(IsServerStarted)
+            SpawnTimer.OnChange += OnTimerChange;
+
+            if (IsServerStarted)
                 ServerRpc_SpawnWeapon(weaponToSpawn);
+        }
+
+        public override void OnStopClient()
+        {
+            base.OnStopClient();
+
+            SpawnTimer.OnChange -= OnTimerChange;
         }
 
         private void Update()
         {
             SpawnTimer.Update();
 
-            CurrentSpawnTime = SpawnTimer.Remaining;
+            if (SpawnTimer.Remaining > 0)
+                CanSpawn.Value = false;
+            else
+                CanSpawn.Value = true;
+
+            DebugSpawnTime = SpawnTimer.Remaining;
+            DebugCanSpawn = CanSpawn.Value;
 
             RotateSpawnedObject();
         }
 
         private void OnTriggerEnter(Collider _other)
         {
-            if (CurrentSpawnTime > 0)
-                return;
-
-            NetworkObject weapon = SpawnTransform.GetComponentInChildren<NetworkObject>();            
-            ServerManager.Despawn(weapon, DespawnType.Destroy);
-
-            SpawnTimer.StartTimer(Cooldown);
-            SpawnTimer.OnChange += OnTimerChange;
+            NetworkObject weapon = SpawnTransform.GetComponentInChildren<NetworkObject>();
+            ServerRpc_DespawnWeapon(weapon);
         }
 
+        #region Timer Functions
+        
         private void OnTimerChange(SyncTimerOperation _operation, float _prev, float _next, bool _asServer)
         {
-            if (_operation == SyncTimerOperation.Finished || _operation == SyncTimerOperation.Complete)
+            if (_operation == SyncTimerOperation.Finished)
                 ServerRpc_SpawnWeapon(weaponToSpawn);
-        }
+        } 
+
+        #endregion
     }
 }

@@ -155,12 +155,12 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 1195056985496502904}
   _networkObjectCache: {fileID: 1195056985496502904}
-  weaponModel: {fileID: 4857232776321796721}
-  fireRate: 1
-  reloadTime: 3
-  damage: 10
-  maxAmmo: 12
-  currentAmmo: 0
+  WeaponModel: {fileID: 4857232776321796721}
+  FireRate: 1
+  ReloadTime: 5
+  Damage: 15
+  MaxAmmo: 10
+  CurrentAmmo: 0
 --- !u!1001 &5740174898606028576
 PrefabInstance:
   m_ObjectHideFlags: 0
