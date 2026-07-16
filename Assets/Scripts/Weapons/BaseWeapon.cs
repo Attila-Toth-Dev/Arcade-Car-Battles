@@ -25,21 +25,5 @@ namespace Weapons
         public abstract void Fire();
 
         public abstract void Reload();
-
-        #region RPC Functions
-        
-        [ObserversRpc(ExcludeServer = false)]
-        public virtual void ObserversRpc_SetWeaponParent(NetworkObject _obj, NetworkObject _parent)
-        {
-            Debug.Log($"{_obj.name}, {_parent.name}");
-
-            if (_parent.TryGetComponent(out NetworkBehaviour attachPoint))
-                _obj.SetParent(attachPoint);
-
-            _obj.transform.localPosition = Vector3.zero;
-            _obj.transform.localRotation = Quaternion.identity;
-        } 
-
-        #endregion
     }
 }

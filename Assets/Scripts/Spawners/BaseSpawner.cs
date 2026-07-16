@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using FishNet.Object;
+using FishNet.Managing.Logging;
 using FishNet.Object.Synchronizing;
 
 using Weapons;
@@ -44,12 +45,6 @@ namespace Spawners
             }
 
             IsItemSpawned.Value = true;
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        public virtual void ServerRpc_DespawnCurrentPlayerWeapon(WeaponController _controller)
-        {
-            ServerManager.Despawn(_controller.CurrentWeapon);
         }
 
         [ServerRpc(RequireOwnership = false)]

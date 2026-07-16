@@ -54,8 +54,8 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
   NetworkBehaviours:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1902318145898611062}
+  - {fileID: 7786660084227666941}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -65,8 +65,8 @@ MonoBehaviour:
   _isGlobal: 0
   _initializeOrder: 0
   _preventDespawnOnDisconnect: 0
-  _defaultDespawnType: 0
-  _initializedTimestamp: -8584180895057841553
+  _defaultDespawnType: 1
+  _initializedTimestamp: -8584174028989571073
   _localLevelOfDetailCalculationType: 0
   _useLevelOfDetail: 0
   _useRootLevelOfDetail: 1
@@ -106,9 +106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 2523566161248089260}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 2523566161248089260}
   _componentConfiguration: 0
   _synchronizeParent: 1
   _packing:
@@ -152,9 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68a706e6978ea37418cb978571956d23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapons.SniperWeapon
-  _componentIndexCache: 255
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 2523566161248089260}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 2523566161248089260}
   WeaponModel: {fileID: 9043939092237636857}
   FireRate: 10
   ReloadTime: 10

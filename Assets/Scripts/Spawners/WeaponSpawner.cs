@@ -46,26 +46,27 @@ namespace Spawners
             
             if (!IsItemSpawned.Value)
             {
-                Debug.Log($"Returning early as {this.GetType()} spawner has no child objects.");
+                Debug.LogWarning($"Returning early as {this.GetType()} spawner has no child objects.");
                 return;
             }
             else if(controller.CurrentWeapon != null && controller.CurrentWeapon.GetType() == weaponToSpawn.GetType())
             {
-                Debug.Log($"Returning early as car's current weapon is the same as weapon in spawner.");
+                Debug.LogWarning($"Returning early as car's current weapon is the same as weapon in spawner.");
                 return;
             }
 
             if (controller != null)
             {
-                if(controller.CurrentWeapon != null)
-                    ServerRpc_DespawnCurrentPlayerWeapon(controller);
-
                 NetworkObject nob = controller.GetComponent<NetworkObject>();
+
+                if (controller.CurrentWeapon)
+                    controller.ServerRpc_DespawnWeapon();
+                
                 controller.ServerRpc_SpawnWeapon(nob.LocalConnection, weaponToSpawn);
             }
 
-            NetworkObject weapon = SpawnTransform.GetComponentInChildren<NetworkObject>();
-            ServerRpc_DespawnWeapon(weapon);
+            NetworkObject model = SpawnTransform.GetComponentInChildren<NetworkObject>();
+            ServerRpc_DespawnWeapon(model);
 
             ServerRpc_StartTimer(Cooldown);
         }

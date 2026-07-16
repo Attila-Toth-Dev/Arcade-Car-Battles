@@ -93,17 +93,22 @@ namespace Controllers
         {
             currentWeapon = _weaponToSpawn;
 
-            NetworkObject nob = Instantiate(currentWeapon);
+            NetworkObject nob = NetworkManager.GetPooledInstantiated(_weaponToSpawn, weaponAttachPoint.transform.position, weaponAttachPoint.transform.rotation, asServer: true);
             ServerManager.Spawn(nob, _conn);
 
-            if (nob.TryGetComponent(out BaseWeapon weapon))
-                weapon.ObserversRpc_SetWeaponParent(nob, weaponAttachPoint);
+            if (weaponAttachPoint.TryGetComponent(out NetworkBehaviour attachPoint))
+                nob.SetParent(attachPoint);
+            
+            nob.transform.localPosition = Vector3.zero;
+            nob.transform.localRotation = Quaternion.identity;
+            nob.transform.localScale = Vector3.one;
+        }
 
-            //if (weaponAttachPoint.TryGetComponent(out NetworkBehaviour attachPoint))
-            //    nob.SetParent(attachPoint);
-            //
-            //nob.transform.localPosition = Vector3.zero;
-            //nob.transform.localRotation = Quaternion.identity;
+        [ServerRpc(RequireOwnership = false)]
+        public void ServerRpc_DespawnWeapon()
+        {
+            NetworkObject nob = weaponAttachPoint.GetComponentInChildren<NetworkObject>();
+            ServerManager.Despawn(nob);
         }
 
         #endregion

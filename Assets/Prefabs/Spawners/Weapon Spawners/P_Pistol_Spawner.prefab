@@ -49,12 +49,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4591759989330756356, guid: 54ffad38fd801ab48b2ed3f5fde20fa3, type: 3}
+      propertyPath: Cooldown
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591759989330756356, guid: 54ffad38fd801ab48b2ed3f5fde20fa3, type: 3}
       propertyPath: weaponToSpawn
       value: 
       objectReference: {fileID: 2393850155860798891, guid: 211a09ebd025fdb4193b81072124fa14, type: 3}
     - target: {fileID: 7439634386724857693, guid: 54ffad38fd801ab48b2ed3f5fde20fa3, type: 3}
       propertyPath: WasActiveDuringEdit
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439634386724857693, guid: 54ffad38fd801ab48b2ed3f5fde20fa3, type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7439634386724857693, guid: 54ffad38fd801ab48b2ed3f5fde20fa3, type: 3}
       propertyPath: <AssetPathHash>k__BackingField
