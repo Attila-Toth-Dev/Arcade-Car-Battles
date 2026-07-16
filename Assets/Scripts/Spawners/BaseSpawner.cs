@@ -27,7 +27,7 @@ namespace Spawners
 
         #region RPC Functions
         
-        [ServerRpc(RequireOwnership = false, RunLocally = false)]
+        [ServerRpc(RequireOwnership = false)]
         public virtual void ServerRpc_SpawnWeapon(BaseWeapon _weapon)
         {
             if (CanSpawn.Value)
@@ -45,7 +45,7 @@ namespace Spawners
             }
         }
 
-        [ServerRpc(RequireOwnership = false, RunLocally = false)]
+        [ServerRpc(RequireOwnership = false)]
         public virtual void ServerRpc_DespawnWeapon(NetworkObject _weapon)
         {
             ServerManager.Despawn(_weapon);

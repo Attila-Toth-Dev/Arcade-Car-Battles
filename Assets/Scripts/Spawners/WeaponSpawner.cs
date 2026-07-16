@@ -19,7 +19,7 @@ namespace Spawners
             SpawnTimer.OnChange += OnTimerChange;
 
             if (IsServerStarted)
-                ServerRpc_SpawnWeapon(weaponToSpawn);
+                SpawnTimer.StartTimer(Cooldown);
         }
 
         public override void OnStopClient()
@@ -52,7 +52,7 @@ namespace Spawners
 
         #region Timer Functions
         
-        private void OnTimerChange(SyncTimerOperation _operation, float _prev, float _next, bool _asServer)
+        public virtual void OnTimerChange(SyncTimerOperation _operation, float _prev, float _next, bool _asServer)
         {
             if (_operation == SyncTimerOperation.Finished)
                 ServerRpc_SpawnWeapon(weaponToSpawn);

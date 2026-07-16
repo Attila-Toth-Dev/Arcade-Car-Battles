@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3961687904327868782}
   - component: {fileID: 352163513107040105}
   - component: {fileID: 5630358492929239445}
+  - component: {fileID: 3416414501283211453}
   m_Layer: 0
   m_Name: P_Network_Manager
   m_TagString: Untagged
@@ -95,6 +96,19 @@ MonoBehaviour:
   _port: 7777
   _maximumClients: 4095
   _clientAddress: 100.94.122.40
+--- !u!114 &3416414501283211453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945732404830847384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb13d174096685549b1d6a94d726ff7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FishNet.Runtime::FishNet.Utility.Performance.DefaultObjectPool
+  _enabled: 0
 --- !u!1001 &8963778682709051546
 PrefabInstance:
   m_ObjectHideFlags: 0
