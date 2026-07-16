@@ -15,7 +15,7 @@ namespace Spawners
 
         public readonly SyncTimer SpawnTimer = new SyncTimer();
 
-        public readonly SyncVar<bool> CanSpawn = new SyncVar<bool>();
+        public readonly SyncVar<bool> IsItemSpawned = new SyncVar<bool>();
 
         [Header("Base Spawner Properties")]
         [SerializeField] protected Transform SpawnTransform;
@@ -23,26 +23,26 @@ namespace Spawners
 
         [Header("Debugging")]
         [SerializeField, ReadOnly] protected float DebugSpawnTime;
-        [SerializeField, ReadOnly] protected bool DebugCanSpawn;
+        [SerializeField, ReadOnly] protected bool DebugIsItemSpawned;
 
         #region RPC Functions
         
         [ServerRpc(RequireOwnership = false)]
         public virtual void ServerRpc_SpawnWeapon(BaseWeapon _weapon)
         {
-            if (CanSpawn.Value)
+            NetworkObject nob = NetworkManager.GetPooledInstantiated(_weapon, SpawnTransform.position, SpawnTransform.rotation, asServer: true);
+            ServerManager.Spawn(nob);
+
+            if (SpawnTransform.TryGetComponent(out NetworkBehaviour spawn))
             {
-                Debug.Log($"Spawning new weapon {_weapon.GetType()}");
-
-                NetworkObject nob = Instantiate(_weapon);
-                ServerManager.Spawn(nob);
-
-                if (SpawnTransform.TryGetComponent(out NetworkBehaviour spawn))
-                    nob.SetParent(spawn);
+                nob.SetParent(spawn);
 
                 nob.transform.localPosition = Vector3.zero;
                 nob.transform.localRotation = Quaternion.identity;
+                nob.transform.localScale = Vector3.one * 2.5f;
             }
+         
+            IsItemSpawned.Value = true;
         }
 
         [ServerRpc(RequireOwnership = false)]
@@ -50,7 +50,7 @@ namespace Spawners
         {
             ServerManager.Despawn(_weapon);
 
-            SpawnTimer.StartTimer(Cooldown);
+            IsItemSpawned.Value = false;
         }
 
         #endregion

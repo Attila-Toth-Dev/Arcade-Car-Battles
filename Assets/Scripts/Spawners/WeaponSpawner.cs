@@ -14,12 +14,12 @@ namespace Spawners
 
         public override void OnStartClient()
         {
-            base.OnStartServer();
+            base.OnStartClient();
 
             SpawnTimer.OnChange += OnTimerChange;
 
-            if (IsServerStarted)
-                SpawnTimer.StartTimer(Cooldown);
+            if (IsServerStarted || IsHostStarted)
+                ServerRpc_SpawnWeapon(weaponToSpawn);
         }
 
         public override void OnStopClient()
@@ -33,27 +33,33 @@ namespace Spawners
         {
             SpawnTimer.Update();
 
-            if (SpawnTimer.Remaining > 0)
-                CanSpawn.Value = false;
-            else
-                CanSpawn.Value = true;
-
             DebugSpawnTime = SpawnTimer.Remaining;
-            DebugCanSpawn = CanSpawn.Value;
+            DebugIsItemSpawned = IsItemSpawned.Value;
 
             RotateSpawnedObject();
         }
 
         private void OnTriggerEnter(Collider _other)
         {
+            if (!IsItemSpawned.Value)
+            {
+                Debug.Log($"Returning early as {this.GetType()} spawner has no child objects.");
+                return;
+            }
+
             NetworkObject weapon = SpawnTransform.GetComponentInChildren<NetworkObject>();
             ServerRpc_DespawnWeapon(weapon);
+
+            SpawnTimer.StartTimer(Cooldown);
         }
 
         #region Timer Functions
-        
+
         public virtual void OnTimerChange(SyncTimerOperation _operation, float _prev, float _next, bool _asServer)
         {
+            if (!_asServer)
+                return;
+
             if (_operation == SyncTimerOperation.Finished)
                 ServerRpc_SpawnWeapon(weaponToSpawn);
         } 
