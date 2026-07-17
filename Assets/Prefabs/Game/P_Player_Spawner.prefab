@@ -45,4 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.PlayerSpawner
   playerPrefab: {fileID: 2303521890887374736, guid: a3a21fb84ccf697448adacb0d9eb633b, type: 3}
+  spawnPoints: []
   requiredPlayerCount: 2
+  networkManager: {fileID: 0}
