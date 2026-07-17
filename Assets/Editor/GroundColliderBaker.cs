@@ -22,7 +22,7 @@ namespace Assets.Editor
             combinedMesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
             combinedMesh.CombineMeshes(combine, true, true);
 
-            AssetDatabase.CreateAsset(combinedMesh, "Assets/Physics/GroundCollisionMesh.asset");
+            AssetDatabase.CreateAsset(combinedMesh, "Assets/Art/Models/GroundCollisionMesh.asset");
             AssetDatabase.SaveAssets();
 
             GameObject colliderObj = new GameObject("Ground_Collision");
