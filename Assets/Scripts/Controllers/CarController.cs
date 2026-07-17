@@ -38,7 +38,7 @@ namespace Controllers
         [Header("Physics Properties")]
         [SerializeField] private float colliderOffset = 0.5f;
         [SerializeField] private float rayDistance = 1.1f;
-        [SerializeField] private LayerMask layerMask;
+        [SerializeField] private LayerMask drivingLayer;
 
         [Header("Input References")]
         [SerializeField] private InputActionReference moveActionRef;
@@ -142,7 +142,7 @@ namespace Controllers
 
         private void GroundCheck()
         {
-            isGrounded = UnityEngine.Physics.Raycast(parent.transform.position, Vector3.down, out hitOn, rayDistance, layerMask);
+            isGrounded = UnityEngine.Physics.Raycast(parent.transform.position, Vector3.down, out hitOn, rayDistance, drivingLayer);
         }
 
         private void MoveCar(Vector2 _moveInput)

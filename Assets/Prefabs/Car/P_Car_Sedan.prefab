@@ -548,9 +548,12 @@ MonoBehaviour:
     m_RotationOrder: 4
   colliderOffset: 1
   rayDistance: 1.1
-  layerMask:
+  drivingLayer:
     serializedVersion: 2
     m_Bits: 192
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   moveActionRef: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   moveInput: {x: 0, y: 0}
   currentSpeed: 0
@@ -562,6 +565,9 @@ MonoBehaviour:
   turnVelocity: 0
   setSteer: 0
   isGrounded: 0
+  currentLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &-8402952135297063246
 MonoBehaviour:
   m_ObjectHideFlags: 0
