@@ -51,9 +51,9 @@ MonoBehaviour:
   _refreshDefaultPrefabs: 0
   _runInBackground: 1
   _dontDestroyOnLoad: 1
-  _objectPool: {fileID: 0}
+  _objectPool: {fileID: 3416414501283211453}
   _persistence: 0
-  _logging: {fileID: 0}
+  _logging: {fileID: 11400000, guid: 34f6b5727012d104ba014271066cf777, type: 2}
   _spawnablePrefabs: {fileID: 11400000, guid: ca8fc79faae618a499ba970b1f1822d0, type: 2}
 --- !u!114 &352163513107040105
 MonoBehaviour:
