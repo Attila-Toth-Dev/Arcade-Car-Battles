@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
+using FishNet.Transporting.Tugboat;
 using FishNet.Managing.Transporting;
 using FishNet.Transporting.Multipass;
 
@@ -54,24 +55,18 @@ namespace Platform
     
             Multipass mp = transportManager.GetTransport<Multipass>();
 
-#if (WINDOWS_STEAM_RELEASE || MACOS_STEAM_RELEASE || LINUX_STEAM_RELEASE) && APP4346940
-                mp.SetClientTransport<FishySteamworks.FishySteamworks>();
+#if WINDOWS_RELEASE || LINUX_RELEASE
+                mp.SetClientTransport<Tugboat>();
     
-                Platform = new SteamPlatformService(mp.GetTransport<FishySteamworks.FishySteamworks>());
-    
-                Platform.Service = PlatformService.Steam;
-                currentPlatform = Platform.Service.ToString();
-
-#elif IOS_RELEASE || ANDROID_RELEASE
-    
-#elif BASE_RELEASE
-                mp.SetClientTransport<FishNet.Transporting.Tugboat>();
-    
-                Platform = new BasePlatformService(mp.GetTransport<FishNet.Transporting.Tugboat>());
+                Platform = new BasePlatformService(mp.GetTransport<Tugboat>());
     
                 Platform.Service = PlatformService.None;
                 currentPlatform = Platform.Service.ToString();
-    
+
+#elif IOS_RELEASE || ANDROID_RELEASE
+
+#elif WEB_RELEASE
+
 #endif
             if (Platform.GetType() == null)
                 return;
