@@ -56,16 +56,23 @@ namespace Platform
             Multipass mp = transportManager.GetTransport<Multipass>();
 
 #if WINDOWS_RELEASE || LINUX_RELEASE
-                mp.SetClientTransport<Tugboat>();
-    
-                Platform = new BasePlatformService(mp.GetTransport<Tugboat>());
-    
-                Platform.Service = PlatformService.None;
-                currentPlatform = Platform.Service.ToString();
+            mp.SetClientTransport<Tugboat>();
+
+            Platform = new BasePlatformService(mp.GetTransport<Tugboat>());
+
+            Platform.Service = PlatformService.None;
+            currentPlatform = Platform.Service.ToString();
+
+#elif WEB_RELEASE
+            mp.SetClientTransport<Bayou>();
+
+            Platform = new WebPlatformService(mp.GetTransport<Bayou>());
+            
+            Platform.Service = PlatformService.Web;
+            currentPlatform = Platform.Service.ToString();
 
 #elif IOS_RELEASE || ANDROID_RELEASE
 
-#elif WEB_RELEASE
 
 #endif
             if (Platform.GetType() == null)
