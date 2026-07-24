@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UI.Menu
 {
-    public class MainMenuUI : MonoBehaviour
+    public class MenuCanvasUI : MonoBehaviour
     {
         public void Race()
         {
